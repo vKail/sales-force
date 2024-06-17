@@ -1,0 +1,12 @@
+<div class="flex h-screen">
+    <div class="bg-gray-800 text-white w-1/6">
+      <app-side-bar></app-side-bar>
+    </div>
+    <div class="flex-grow h-screen overflow-auto">
+      <app-nav-bar></app-nav-bar>
+      <div class="bg-white py-4 pl-8 pr-5 flex-grow min-w-full">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,26 @@
+<section class="flex flex-col px-6 mx-auto w-full">
+  <div class="flex flex-col mt-6">
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+        <div class="flex justify-end w-full mb-4">
+          <button
+            class="bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 py-2 px-5 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out"
+            routerLink="/dashboard/products/create">
+            <div class="flex justify-center items-center">
+              <mat-icon>store</mat-icon>
+              <span class="mx-1"></span>
+              Nuevo Producto
+            </div>
+          </button>
+        </div>
+        <div class="grid grid-cols-4 gap-5">
+        @for (product of products; track products) {
+          <app-product-card [product]="product" (deleteProduct)="deleteProduct(+$event)">
+          </app-product-card>
+        }
+      </div>
+
+      </div>
+    </div>
+  </div>
+</section>

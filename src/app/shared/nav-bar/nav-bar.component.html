@@ -1,0 +1,23 @@
+<div class="navbar bg-base-300 flex items-center justify-between px-4 py-2">
+  <div class="navbar-start">
+    <a class="btn btn-ghost text-xl font-semibold">UTA Services</a>
+  </div>
+  <div class="navbar-end flex items-center">
+    <!-- Comentario: Aquí puedes incluir el nombre de usuario si lo deseas -->
+    <!-- <h1 class="text-black">{{ userLogged?.username }}</h1> -->
+    <div class="flex flex-row dropdown dropdown-end ml-4">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+        <div class="w-9 rounded-full">
+          <img
+            alt="Avatar"
+            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+            class="rounded-full"
+          />
+        </div>
+      </div>
+     <div class="px-2">
+      <button (click)="logout()" class="p-2 bg-red-600 rounded-md text-white hover:bg-red-700 font-bold">Cerrar Sesión</button>
+     </div>
+    </div>
+  </div>
+</div>
