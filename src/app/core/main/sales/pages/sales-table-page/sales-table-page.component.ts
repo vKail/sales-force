@@ -1,18 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { TasksService } from '../../tasks.service';
-import { ITask, ITaskGet } from '../../interfaces/task.interface';
+import { TasksService } from '../../sales.service';
+import { ITask, ITaskGet } from '../../interfaces/sales.interface';
 import { needConfirmation } from '../../../../../shared/confirm-dialog/decorators/confirm-dialog.decorator';
 
 @Component({
-  selector: 'app-tasks-table-page',
+  selector: 'app-sales-table-page',
   standalone: true,
   imports: [RouterLink, MatIcon],
-  templateUrl: './tasks-table-page.component.html',
+  templateUrl: './sales-table-page.component.html',
   styles: ``,
 })
-export class TasksTablePageComponent {
+export class SalesTablePageComponent {
   taskService = inject(TasksService);
   tasks: ITaskGet[] = []; 
   allTasks: ITaskGet[] = [];

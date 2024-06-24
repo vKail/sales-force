@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { Router } from "@angular/router";
-import { IQuota } from "./interfaces/quota.interface";
+import { IQuota, IQuotaGet } from "./interfaces/quota.interface";
 import { Observable } from "rxjs";
 
 
@@ -14,8 +14,8 @@ export class QuotasService {
     router = inject(Router);
     constructor() {
     }
-    public getQuotas(): Observable<IQuota[]>{
-        return this.http.get<IQuota[]>(`${this.url}`);
+    public getQuotas(): Observable<IQuotaGet[]>{
+        return this.http.get<IQuotaGet[]>(`${this.url}`);
     }
     public getQuotaById(id : number): Observable<IQuota> {
         return this.http.get<IQuota>(`${this.url}/${id}`);

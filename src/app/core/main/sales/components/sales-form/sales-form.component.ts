@@ -1,18 +1,18 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { TasksService } from '../../tasks.service';
+import { TasksService } from '../../sales.service';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-tasks-form',
+  selector: 'app-sales-form',
   standalone: true,
   imports: [RouterLink, CommonModule, ReactiveFormsModule],
-  templateUrl: './tasks-form.component.html',
+  templateUrl: './sales-form.component.html',
   styles: ``,
 })
-export class TasksFormComponent implements OnInit {
+export class SalesFormComponent implements OnInit {
   private activeRoute = inject(ActivatedRoute);
   private taskService = inject(TasksService);
   public router = inject(Router);

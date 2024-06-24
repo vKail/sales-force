@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { DelegationsService } from '../../delegations.service';
-import { IDelegations } from '../../interfaces/delegations.interface';
+import { IDelegationGet, IDelegations } from '../../interfaces/delegations.interface';
 import { needConfirmation } from '../../../../../shared/confirm-dialog/decorators/confirm-dialog.decorator';
 import { RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
@@ -14,14 +14,38 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class DelegationsTablePageComponent implements OnInit{
   delegationservice = inject(DelegationsService);
-  delegations: IDelegations[] = []; 
+  delegations: IDelegationGet[] = []; 
+  allDelegations: IDelegationGet[] = [];
+  currentPage = 1;
+  pageSize = 5;
   
   constructor() { }
 
   ngOnInit(): void {
+    this.loadDelegations();
+  }
+
+  loadDelegations(): void {
     this.delegationservice.getDelegations().subscribe((delegations) => {
-      this.delegations = delegations;
+      this.allDelegations = delegations;
+      this.applyPagination();
     });
+  }
+
+  applyPagination(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    this.delegations = this.allDelegations.slice(startIndex, startIndex + this.pageSize);
+  }
+
+  get totalPages(): number[] {
+    const totalDelegations = this.allDelegations.length;
+    const pages = Math.ceil(totalDelegations / this.pageSize);
+    return Array.from({ length: pages }, (_, index) => index + 1);
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.applyPagination();
   }
 
   @needConfirmation({
@@ -31,7 +55,8 @@ export class DelegationsTablePageComponent implements OnInit{
   })
   deleteDelegation(id: number): void {
     this.delegationservice.deleteDelegation(id).subscribe(() => {
-      this.delegations = this.delegations.filter((client) => client.id !== id);
+      this.allDelegations = this.allDelegations.filter((delegation) => delegation.id !== id);
+      this.applyPagination();
     });
   }
 

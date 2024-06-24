@@ -27,7 +27,7 @@ export const mainRoutes: Routes = [
             },
             {
                 path: 'tasks',
-                loadChildren: () => import('./tasks/tasks.routes').then(m => m.TaksRoutes)
+                loadChildren: () => import('./tasks/tasks.routes').then(m => m.TasksRoutes)
             },
             {
                 path: 'products',
@@ -36,6 +36,10 @@ export const mainRoutes: Routes = [
             {
                 path: 'opportunities',
                 loadChildren: () => import('./oportiunities/opportunities.routes').then(m => m.OpportunityRoutes)
+            },
+            {
+                path: 'sales',
+                loadChildren: () => import('./sales/sales.routes').then(m => m.SalesRoutes)
             }
         ]
         

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { Router } from "@angular/router";
-import { IDelegations, IDelegationsPost } from "./interfaces/delegations.interface";
+import { IDelegationGet, IDelegations, IDelegationsPost } from "./interfaces/delegations.interface";
 
 
 @Injectable({
@@ -14,7 +14,7 @@ export class DelegationsService {
     constructor() {
     }
     public getDelegations(){
-        return this.http.get<IDelegations[]>(`${this.url}`);
+        return this.http.get<IDelegationGet[]>(`${this.url}`);
     }
     public getDelegationById(id : number) {
         return this.http.get<IDelegations>(`${this.url}/${id}`);

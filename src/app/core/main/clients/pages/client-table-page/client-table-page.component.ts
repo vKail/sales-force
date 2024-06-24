@@ -15,13 +15,38 @@ import { RouterLink } from '@angular/router';
 export class ClientTablePageComponent implements OnInit{
     clientService = inject(ClientService);
     clients: IClient[] = []; 
+    allClients: IClient[] = [];
+    currentPage = 1;
+    pageSize = 5;
+
     
     constructor() { }
   
     ngOnInit(): void {
+      this.loadClients();
+    }
+
+    loadClients(): void {
       this.clientService.getClients().subscribe((clients) => {
-        this.clients = clients;
+        this.allClients = clients;
+        this.applyPagination();
       });
+    }
+
+    applyPagination(): void {
+      const startIndex = (this.currentPage - 1) * this.pageSize;
+      this.clients = this.allClients.slice(startIndex, startIndex + this.pageSize);
+    }
+
+    get totalPages(): number[] {
+      const totalClients = this.allClients.length;
+      const pages = Math.ceil(totalClients / this.pageSize);
+      return Array.from({ length: pages }, (_, index) => index + 1);
+    }
+
+    onPageChange(page: number): void {
+      this.currentPage = page;
+      this.applyPagination();
     }
 
     @needConfirmation({
@@ -31,7 +56,8 @@ export class ClientTablePageComponent implements OnInit{
     })
     deleteClient(id: number): void {
       this.clientService.deleteClient(id).subscribe(() => {
-        this.clients = this.clients.filter((client) => client.id !== id);
+        this.allClients = this.allClients.filter((client) => client.id !== id);
+        this.applyPagination();
       });
     }
   

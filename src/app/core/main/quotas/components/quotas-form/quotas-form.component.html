@@ -9,7 +9,7 @@
                     <input id="employeeId" type="text" formControlName="employeeId"
                         class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
                     <div *ngIf="quotaForm.get('employeeId')?.invalid && (quotaForm.get('employeeId')?.dirty || quotaForm.get('employeeId')?.touched)" class="text-sm text-red-600">
-                        <span *ngIf="quotaForm.get('employeeId')?.errors?.['required']">La identificación es requerida</span>
+                        <span *ngIf="quotaForm.get('employeeId')?.errors?.['required']">El empleado es requerida</span>
                     </div>
                 </div>
                 <div>
@@ -17,7 +17,7 @@
                     <input id="startDate" type="date" formControlName="startDate"
                         class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
                     <div *ngIf="quotaForm.get('startDate')?.invalid && (quotaForm.get('startDate')?.dirty || quotaForm.get('startDate')?.touched)" class="text-sm text-red-600">
-                        <span *ngIf="quotaForm.get('startDate')?.errors?.['required']">La fecha de nacimiento es requerida</span>
+                        <span *ngIf="quotaForm.get('startDate')?.errors?.['required']">La fecha de inicio es requerida</span>
                     </div>
                 </div>
                 <div>
@@ -25,7 +25,7 @@
                     <input id="endDate" type="date" formControlName="endDate"
                         class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
                     <div *ngIf="quotaForm.get('endDate')?.invalid && (quotaForm.get('endDate')?.dirty || quotaForm.get('endDate')?.touched)" class="text-sm text-red-600">
-                        <span *ngIf="quotaForm.get('endDate')?.errors?.['required']">La fecha de nacimiento es requerida</span>
+                        <span *ngIf="quotaForm.get('endDate')?.errors?.['required']">La fecha de finalización es requerida</span>
                     </div>
                 </div>
                 <div>
@@ -33,7 +33,7 @@
                     <input id="amout" type="text" formControlName="amout"
                         class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
                     <div *ngIf="quotaForm.get('amount')?.invalid && (quotaForm.get('amout')?.dirty || quotaForm.get('amout')?.touched)" class="text-sm text-red-600">
-                        <span *ngIf="quotaForm.get('amout')?.errors?.['required']">El género es requerido</span>
+                        <span *ngIf="quotaForm.get('amout')?.errors?.['required']">El monto es requerido</span>
                     </div>
                 </div>
 
@@ -42,8 +42,7 @@
                     <input id="comission" type="text" formControlName="comission"
                         class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
                     <div *ngIf="quotaForm.get('comission')?.invalid && (quotaForm.get('comission')?.dirty || quotaForm.get('comission')?.touched)" class="text-sm text-red-600">
-                        <span *ngIf="quotaForm.get('comission')?.errors?.['required']">El correo es requerido</span>
-                        <span *ngIf="quotaForm.get('comission')?.errors?.['comission']">El correo debe ser válido</span>
+                        <span *ngIf="quotaForm.get('comission')?.errors?.['required']">La comisión es requerida</span>
                     </div>
                 </div>
 
@@ -52,7 +51,7 @@
                     <input id="achieved" type="text" formControlName="achieved"
                         class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
                     <div *ngIf="quotaForm.get('achieved')?.invalid && (quotaForm.get('achieved')?.dirty || quotaForm.get('achieved')?.touched)" class="text-sm text-red-600">
-                        <span *ngIf="quotaForm.get('achieved')?.errors?.['required']">La dirección es requerida</span>
+                        <span *ngIf="quotaForm.get('achieved')?.errors?.['required']">El estado es requerido</span>
                     </div>
                 </div>
                 

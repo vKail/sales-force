@@ -2,12 +2,12 @@
   
     <button
       class="bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 py-2 px-5 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out"
-      routerLink="/dashboard/opportunities/create"
+      routerLink="/dashboard/sales/create"
     >
       <div class="flex justify-center items-center">
-        <mat-icon>person</mat-icon>
+        <mat-icon>store</mat-icon>
         <span class="mx-1"></span>
-        Nueva Oportunidad
+        Nueva Venta
       </div>
     </button>
   </div>
@@ -16,65 +16,91 @@
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-300">
         <tr>
-          <th
+            <th
+                scope="col"
+                class="py-3.5 px-6 text-sm font-normal text-left rtl:text-right text-gray-500"
+                >
+                <span>Delegación</span>
+            </th>
+            <th
             scope="col"
             class="py-3.5 px-6 text-sm font-normal text-left rtl:text-right text-gray-500"
           >
-            <span>Cantidad</span>
+            <span>Fecha de inicio </span>
           </th>
           <th
             scope="col"
             class="py-3.5 px-6 text-sm font-normal text-left rtl:text-right text-gray-500"
           >
-            <span>Fecha de ejecución</span>
+            <span>Tiempo estimado</span>
           </th>
           <th
             scope="col"
             class="py-3.5 px-6 text-sm font-normal text-left rtl:text-right text-gray-500"
           >
-            <span>Delegación</span>
+            <span>Tipo de tarea </span>
           </th>
           <th
-            scope="col"
-            class="py-3.5 px-6 text-sm font-normal text-left rtl:text-right text-gray-500"
-          >
-            <span>Acciones </span>
-          </th>
+          scope="col"
+          class="py-3.5 px-6 text-sm font-normal text-left rtl:text-right text-gray-500"
+        >
+          <span>Comentarios </span>
+        </th>
+        <th
+        scope="col"
+        class="py-3.5 px-6 text-sm font-normal text-left rtl:text-right text-gray-500"
+      >
+        <span>Acciones </span>
+      </th>
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
-        @for(chance of chances; track chance) {
+        @for(task of tasks; track tasks) {
         <tr class="even:bg-gray-100 odd:bg-white">
           <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
             <div>
               <p class="text-sm font-normal text-gray-400">
-                {{ chance.amount }}
-              </p>
-            </div>
-          </td>
-          <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
-            <div>
-              <p class="text-sm font-normal text-gray-400">
-                {{ chance.date }}
-              </p>
-            </div>
-          </td>
-          <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
-            <div>
-              <p class="text-sm font-normal text-gray-400">
-                {{ chance.delegation.employee.person.dni }} - {{ chance.delegation.consumer.person.dni }} 
+                {{ task.delegation.employee.person.dni }} - {{ task.delegation.consumer.person.dni }} 
               </p>
               <p>
-                {{ chance.delegation.employee.person.firstName }} {{ chance.delegation.employee.person.lastName }} - {{ chance.delegation.consumer.person.firstName }} {{ chance.delegation.consumer.person.lastName }}
+                {{ task.delegation.employee.person.firstName }} {{ task.delegation.employee.person.lastName }} - {{ task.delegation.consumer.person.firstName }} {{ task.delegation.consumer.person.lastName }}
               </p>
             </div>
           </td>
-         
+          <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+            <div>
+              <p class="text-sm font-normal text-gray-400">
+                {{ task.date }}
+              </p>
+            </div>
+          </td>
+          <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+            <div>
+              <p class="text-sm font-normal text-gray-400">
+                {{ task.estimatedTime }}
+              </p>
+            </div>
+          </td>
+          <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+            <div>
+              <p class="text-sm font-normal text-gray-400">
+                {{ task.type }}
+              </p>
+            </div>
+          </td>
+          <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
+            <div>
+              <p class="text-sm font-normal text-gray-400">
+                {{ task.comments[0].content }}
+              </p>
+            </div>
+          </td>
+        
           <td class="px-6 py-4 text-sm whitespace-nowrap">
             <div class="flex items-center gap-x-6">
               <button
                 class="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none"
-                (click)="deleteProduct(chance.id)"
+                (click)="deleteDelegation(task.id)"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +120,7 @@
   
               <button
                 class="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none"
-                [routerLink]="['/dashboard/opportunities/edit/', chance.id]"
+                [routerLink]="['/dashboard/tasks/edit/', task.id]"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

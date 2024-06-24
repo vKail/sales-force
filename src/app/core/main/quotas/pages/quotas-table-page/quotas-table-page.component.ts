@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { QuotasService } from '../../quotas.service';
-import { IQuota } from '../../interfaces/quota.interface';
+import { IQuota, IQuotaGet } from '../../interfaces/quota.interface';
 import { needConfirmation } from '../../../../../shared/confirm-dialog/decorators/confirm-dialog.decorator';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import Swal from 'sweetalert2';
@@ -17,15 +17,41 @@ import { CommonModule } from '@angular/common';
 })
 export class QuotasTablePageComponent implements OnInit{
   quotaService = inject(QuotasService);
-  quotas: IQuota[] = []; 
+  quotas: IQuotaGet[] = []; 
+  allQuotas: IQuotaGet[] = [];
+  currentPage = 1;
+  pageSize = 5;
   
   constructor() { }
 
   ngOnInit(): void {
-    this.quotaService.getQuotas().subscribe((quotas) => {
-      this.quotas = quotas;
-    });
+    this.loadQuotas();
   }
+
+  loadQuotas(): void {
+    this.quotaService.getQuotas().subscribe((quotas) => {
+      this.allQuotas = quotas;
+      this.applyPagination();
+    }
+    );
+  }
+
+  applyPagination(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    this.quotas = this.allQuotas.slice(startIndex, startIndex + this.pageSize);
+  }
+
+  get totalPages(): number[] {
+    const totalQuotas = this.allQuotas.length;
+    const pages = Math.ceil(totalQuotas / this.pageSize);
+    return Array.from({ length: pages }, (_, index) => index + 1);
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+  }
+
+
 
   @needConfirmation({
     title: 'Eliminar Cliente',
@@ -34,7 +60,7 @@ export class QuotasTablePageComponent implements OnInit{
   })
   deleteClient(id: number): void {
     this.quotaService.deleteQuota(id).subscribe(() => {
-      this.quotas = this.quotas.filter((quota) => quota.id !== id);
+      this.allQuotas = this.allQuotas.filter((quota) => quota.id !== id);
     });
   }
 
@@ -42,9 +68,10 @@ export class QuotasTablePageComponent implements OnInit{
     const update = { achieved: status };
     this.quotaService.updateQuota(id, update).subscribe({
       next: () => {
-        const quota = this.quotas.find((quota) => quota.id === id);
+        const quota = this.allQuotas.find((quota) => quota.id === id);
         if (quota) {
           quota.achieved = status;
+          this.applyPagination();
         }
         Swal.fire({
           title: 'Estado actualizado',

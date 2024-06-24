@@ -3,7 +3,7 @@ import { Injectable, inject } from "@angular/core";
 import { IClient } from "../clients/interfaces/client.interface";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { ITask, ITaskGet } from "./interfaces/task.interface";
+import { ITask, ITaskGet } from "./interfaces/sales.interface";
 
 
 @Injectable({
