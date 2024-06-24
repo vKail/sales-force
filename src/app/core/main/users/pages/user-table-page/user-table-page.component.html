@@ -109,7 +109,7 @@
             <div class="flex items-center gap-x-6">
               <button
                 class="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none"
-                (click)="deleteClient(user.id)"
+                (click)="deleteUser(user.id)"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -154,5 +154,26 @@
       </tbody>
     </table>
     </div>
+
+    <div class="flex flex-row justify-between items-center mt-4">
+      <div class="flex flex-row ">
+        <!-- Botones para cambiar de página -->
+        <button class="px-3 py-1 bg-blue-500 text-white rounded-md mr-2 hover:bg-blue-600"
+                [disabled]="currentPage === 1"
+                (click)="onPageChange(currentPage - 1)">
+          Anterior
+        </button>
+        <div class="text-gray-600 mx-3">
+          <!-- Mostrar información de la página actual -->
+          Página {{ currentPage }}
+        </div>
+        <button class="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                (click)="onPageChange(currentPage + 1)">
+          Siguiente
+        </button>
+      </div>
+     
+    </div>
+    
     
     
