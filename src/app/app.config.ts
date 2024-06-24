@@ -26,6 +26,6 @@ export const appConfig: ApplicationConfig = {
       useFactory: initializeDialogService,
       deps: [MatDialog],
       multi: true,
-    },
+    }, provideAnimationsAsync('noop'),
   ],
 };

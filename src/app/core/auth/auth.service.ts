@@ -1,7 +1,9 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable, inject } from "@angular/core";
+import { Injectable, inject, PLATFORM_ID } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable, tap } from "rxjs";
+import { DOCUMENT } from "@angular/common";
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
     providedIn: 'root'
@@ -10,6 +12,8 @@ export class AuthService {
     private readonly baseUrl = 'http://localhost:3000/api/v1/auth';
     private http = inject(HttpClient);
     private router = inject(Router);
+    private document = inject(DOCUMENT);
+    private platformId = inject(PLATFORM_ID);
 
     constructor(){}
 
@@ -30,6 +34,11 @@ export class AuthService {
       }
     
       isAuthenticated(): boolean {
-        return !!document.cookie.split(';').find(cookie => cookie.trim().startsWith('token='));
+        // Verifica si el código se está ejecutando en el navegador
+        if (isPlatformBrowser(this.platformId)) {
+          // Ahora es seguro acceder a document.cookie
+          return !!this.document.cookie.split(';').find(cookie => cookie.trim().startsWith('token='));
+        }
+        return false; // O un valor predeterminado adecuado para el servidor
       }
     }

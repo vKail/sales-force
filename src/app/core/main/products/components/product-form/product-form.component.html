@@ -1,60 +1,50 @@
 <form [formGroup]="productForm" class="space-y-7">
-    <div>
-        <label for="codigoPrincipal" class="block mb-2 text-sm font-medium text-gray-900">Codigo Principal</label>
-        <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="codigoPrincipal" />
-        <mat-error class="flex mt-1 text-red-600">
-          <arv-validation-messages for="codigoPrincipal"></arv-validation-messages>
-        </mat-error>
-      </div>
+  <div>
+    <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nombre del Producto</label>
+    <input id="name" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="name" />
+    <div *ngIf="productForm.get('name')?.invalid && (productForm.get('name')?.dirty || productForm.get('name')?.touched)" class="text-sm text-red-600 mt-1">
+      <span *ngIf="productForm.get('name')?.errors?.['required']">El nombre del producto es requerido</span>
+    </div>
+  </div>
 
-    <div>
-      <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Nombre del Producto</label>
-      <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="nombre" />
-      <mat-error class="flex mt-1 text-red-600">
-        <arv-validation-messages for="nombre"></arv-validation-messages>
-      </mat-error>
+  <div>
+    <label for="brand" class="block mb-2 text-sm font-medium text-gray-900">Marca</label>
+    <input id="brand" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="brand" />
+    <div *ngIf="productForm.get('brand')?.invalid && (productForm.get('brand')?.dirty || productForm.get('brand')?.touched)" class="text-sm text-red-600 mt-1">
+      <span *ngIf="productForm.get('brand')?.errors?.['required']">La marca es requerida</span>
     </div>
-  
-    <div>
-      <label for="descripcion" class="block mb-2 text-sm font-medium text-gray-900">Descripción del Producto</label>
-      <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="descripcion" />
-      <mat-error class="flex mt-1 text-red-600">
-        <arv-validation-messages for="descripcion"></arv-validation-messages>
-      </mat-error>
+  </div>
+
+  <div>
+    <label for="stock" class="block mb-2 text-sm font-medium text-gray-900">Stock</label>
+    <input id="stock" type="number" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="stock" />
+    <div *ngIf="productForm.get('stock')?.invalid && (productForm.get('stock')?.dirty || productForm.get('stock')?.touched)" class="text-sm text-red-600 mt-1">
+      <span *ngIf="productForm.get('stock')?.errors?.['required']">El stock es requerido</span>
     </div>
-  
-    <div>
-      <label for="urlImage" class="block mb-2 text-sm font-medium text-gray-900">URL de la Imagen</label>
-      <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="urlImage" />
-      <mat-error class="flex mt-1 text-red-600">
-        <arv-validation-messages for="urlImage"></arv-validation-messages>
-      </mat-error>
+  </div>
+
+  <div>
+    <label for="price" class="block mb-2 text-sm font-medium text-gray-900">Precio</label>
+    <input id="price" type="number" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="price" />
+    <div *ngIf="productForm.get('price')?.invalid && (productForm.get('price')?.dirty || productForm.get('price')?.touched)" class="text-sm text-red-600 mt-1">
+      <span *ngIf="productForm.get('price')?.errors?.['required']">El precio es requerido</span>
     </div>
-  
-    <div>
-      <label for="existencia" class="block mb-2 text-sm font-medium text-gray-900">Existencia</label>
-      <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="existencia" />
-      <mat-error class="flex mt-1 text-red-600">
-        <arv-validation-messages for="existencia"></arv-validation-messages>
-      </mat-error>
+  </div>
+
+  <div>
+    <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Descripción</label>
+    <input id="description" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="description" />
+    <div *ngIf="productForm.get('description')?.invalid && (productForm.get('description')?.dirty || productForm.get('description')?.touched)" class="text-sm text-red-600 mt-1">
+      <span *ngIf="productForm.get('description')?.errors?.['required']">La descripción es requerida</span>
     </div>
-  
-    <div>
-      <label for="precioUnitario" class="block mb-2 text-sm font-medium text-gray-900">Precio Unitario</label>
-      <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="precioUnitario" />
-      <mat-error class="flex mt-1 text-red-600">
-        <arv-validation-messages for="precioUnitario"></arv-validation-messages>
-      </mat-error>
+  </div>
+
+  <div>
+    <label for="category" class="block mb-2 text-sm font-medium text-gray-900">Categoría</label>
+    <input id="category" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="category" />
+    <div *ngIf="productForm.get('category')?.invalid && (productForm.get('category')?.dirty || productForm.get('category')?.touched)" class="text-sm text-red-600 mt-1">
+      <span *ngIf="productForm.get('category')?.errors?.['required']">La categoría es requerida</span>
     </div>
-  
-    <div>
-      <label for="codigoTarifa" class="block mb-2 text-sm font-medium text-gray-900">Tarifa</label>
-      <select formControlName="codigoTarifa" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-          <option *ngFor="let taxCode of taxCodes" [value]="taxCode.id">{{ taxCode.porcentaje }}</option>
-      </select>
-      <mat-error class="flex mt-1 text-red-600">
-          <arv-validation-messages for="codigoTarifa"></arv-validation-messages>
-      </mat-error>
   </div>
 
   

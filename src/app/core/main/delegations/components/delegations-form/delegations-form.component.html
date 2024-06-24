@@ -1,0 +1,46 @@
+<div class="flex flex-col items-center justify-center min-h-screen py-8 bg-gray-100">
+    <h2 class="mb-6 text-2xl font-semibold text-gray-800">Delegaciones</h2>
+    <section class="w-full max-w-md bg-white rounded-lg shadow-md">
+        <form class="p-6" [formGroup]="delegationForm">
+            <div class="flex flex-col space-y-4">
+
+                <div>
+                    <label for="clientDni" class="text-gray-700">Cliente (DNI)</label>
+                    <input id="clientDni" type="text" formControlName="clientDni"
+                           (input)="searchClients($event)"
+                           class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                    <ul *ngIf="filteredClients && filteredClients.length" class="bg-white border border-gray-300 rounded-md mt-1">
+                        <li *ngFor="let client of filteredClients" (click)="selectClient(client)"
+                            class="px-4 py-2 cursor-pointer hover:bg-gray-100">{{ client.dni }} - {{ client.firstName }} {{ client.lastName }}</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <label for="employeeId" class="text-gray-700">Empleado (ID)</label>
+                    <input id="employeeId" type="text" formControlName="employeeId"
+                           (input)="searchEmployees($event)"
+                           class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                    <ul *ngIf="filteredEmployees && filteredEmployees.length" class="bg-white border border-gray-300 rounded-md mt-1">
+                        <li *ngFor="let employee of filteredEmployees" (click)="selectEmployee(employee)"
+                            class="px-4 py-2 cursor-pointer hover:bg-gray-100">{{ employee.id }} - {{ employee.firstName }} {{ employee.lastName }}</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <button *ngIf="isEditMode; else createButton"
+                        class="bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 py-2 px-5 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out"
+                        (click)="onUpdate()">
+                        Actualizar
+                    </button>
+                    <ng-template #createButton>
+                        <button
+                            class="bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 py-2 px-5 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out"
+                            (click)="onSave()">
+                            Crear
+                        </button>
+                    </ng-template>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>

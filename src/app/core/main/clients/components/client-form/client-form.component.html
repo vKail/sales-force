@@ -1,0 +1,117 @@
+<div class="flex flex-col items-center justify-center min-h-screen py-8 bg-gray-100">
+    <h2 class="mb-6 text-2xl font-semibold text-gray-800">UTA SERVICES</h2>
+    <section class="w-full max-w-md bg-white rounded-lg shadow-md">
+        <form class="p-6" [formGroup]="clientForm" >
+            <div class="flex flex-col space-y-4">
+                
+                <div>
+                    <label for="dni" class="text-gray-700">Identificación</label>
+                    <input id="dni" type="text" formControlName="dni"
+                        class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                    <div *ngIf="clientForm.get('dni')?.invalid && (clientForm.get('dni')?.dirty || clientForm.get('dni')?.touched)" class="text-sm text-red-600">
+                        <span *ngIf="clientForm.get('dni')?.errors?.['required']">La identificación es requerida</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="firstName" class="text-gray-700">Nombre</label>
+                        <input id="firstName" type="text" formControlName="firstName"
+                            class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                        <div *ngIf="clientForm.get('firstName')?.invalid && (clientForm.get('firstName')?.dirty || clientForm.get('firstName')?.touched)" class="text-sm text-red-600">
+                            <span *ngIf="clientForm.get('firstName')?.errors?.['required']">El nombre es requerido</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="lastName" class="text-gray-700">Apellido</label>
+                        <input id="lastName" type="text" formControlName="lastName"
+                            class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                        <div *ngIf="clientForm.get('lastName')?.invalid && (clientForm.get('lastName')?.dirty || clientForm.get('lastName')?.touched)" class="text-sm text-red-600">
+                            <span *ngIf="clientForm.get('lastName')?.errors?.['required']">El apellido es requerido</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="gender" class="text-gray-700">Género</label>
+                    <input id="gender" type="text" formControlName="gender"
+                        class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                    <div *ngIf="clientForm.get('gender')?.invalid && (clientForm.get('gender')?.dirty || clientForm.get('gender')?.touched)" class="text-sm text-red-600">
+                        <span *ngIf="clientForm.get('gender')?.errors?.['required']">El género es requerido</span>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="email" class="text-gray-700">Correo</label>
+                    <input id="email" type="text" formControlName="email"
+                        class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                    <div *ngIf="clientForm.get('email')?.invalid && (clientForm.get('email')?.dirty || clientForm.get('email')?.touched)" class="text-sm text-red-600">
+                        <span *ngIf="clientForm.get('email')?.errors?.['required']">El correo es requerido</span>
+                        <span *ngIf="clientForm.get('email')?.errors?.['email']">El correo debe ser válido</span>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="address" class="text-gray-700">Dirección</label>
+                    <input id="address" type="text" formControlName="address"
+                        class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                    <div *ngIf="clientForm.get('address')?.invalid && (clientForm.get('address')?.dirty || clientForm.get('address')?.touched)" class="text-sm text-red-600">
+                        <span *ngIf="clientForm.get('address')?.errors?.['required']">La dirección es requerida</span>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="phone" class="text-gray-700">Teléfono</label>
+                    <input id="phone" type="text" formControlName="phone"
+                        class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                    <div *ngIf="clientForm.get('phone')?.invalid && (clientForm.get('phone')?.dirty || clientForm.get('phone')?.touched)" class="text-sm text-red-600">
+                        <span *ngIf="clientForm.get('phone')?.errors?.['required']">El teléfono es requerido</span>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="birthDate" class="text-gray-700">Fecha de Nacimiento</label>
+                    <input id="birthDate" type="date" formControlName="birthDate"
+                        class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                    <div *ngIf="clientForm.get('birthDate')?.invalid && (clientForm.get('birthDate')?.dirty || clientForm.get('birthDate')?.touched)" class="text-sm text-red-600">
+                        <span *ngIf="clientForm.get('birthDate')?.errors?.['required']">La fecha de nacimiento es requerida</span>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="locationId" class="text-gray-700">Localidad</label>
+                    <input id="locationId" type="text" formControlName="locationId"
+                        class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                    <div *ngIf="clientForm.get('locationId')?.invalid && (clientForm.get('locationId')?.dirty || clientForm.get('locationId')?.touched)" class="text-sm text-red-600">
+                        <span *ngIf="clientForm.get('locationId')?.errors?.['required']">La localidad es requerida</span>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="type" class="text-gray-700">Tipo de Cliente</label>
+                    <input id="type" type="text" formControlName="type"
+                        class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                    <div *ngIf="clientForm.get('type')?.invalid && (clientForm.get('type')?.dirty || clientForm.get('type')?.touched)" class="text-sm text-red-600">
+                        <span *ngIf="clientForm.get('type')?.errors?.['required']">El tipo de cliente es requerido</span>
+                    </div>
+                </div>
+                
+                @if(isEditMode){
+                    <button
+                      class="bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 py-2 px-5 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out"
+                      (click)="onUpdate()"
+                    >
+                      Actualizar
+                    </button>
+                    } @else {
+                    <button
+                      class="bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 py-2 px-5 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out"
+                      (click)="onCreate()"
+                    >
+                      Crear
+                    </button>
+                    }
+            </div>
+        </form>
+    </section>
+</div>
