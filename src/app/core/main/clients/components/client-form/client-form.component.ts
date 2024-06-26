@@ -40,13 +40,13 @@ export class ClientFormComponent implements OnInit {
 
   initForm(): void {
     this.clientForm = this.formBuilder.group({
-      dni: ['', Validators.required],
+      dni: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('^[0-9]+$')]],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       gender: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       address: ['', Validators.required],
-      phone: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('^[0-9]+$')]],
       birthDate: ['', Validators.required],
       locationId: ['', Validators.required],
       type: ['', Validators.required],
@@ -54,6 +54,7 @@ export class ClientFormComponent implements OnInit {
   }
 
   private retrieveClient(id: number): void {
+    console.log('id', id);
     this.clientService.getClientById(id).subscribe({
       next: (client) => {
         // Convert birthDate to a format compatible with input[type="date"]

@@ -1,1 +1,42 @@
-<p>opportunities-form works!</p>
+<form [formGroup]="chanceForm" class="space-y-7">
+    <div>
+      <label for="amount" class="block mb-2 text-sm font-medium text-gray-900">Cantidad</label>
+      <input id="amount" type="number" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="amount" />
+      <div *ngIf="chanceForm.get('amount')?.invalid && (chanceForm.get('amount')?.dirty || chanceForm.get('amount')?.touched)" class="text-sm text-red-600 mt-1">
+        <span *ngIf="chanceForm.get('amount')?.errors?.['required']">La cantidad es requerida</span>
+      </div>
+    </div>
+  
+    <div>
+      <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Fecha</label>
+      <input id="date" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="date" />
+      <div *ngIf="chanceForm.get('date')?.invalid && (chanceForm.get('date')?.dirty || chanceForm.get('date')?.touched)" class="text-sm text-red-600 mt-1">
+        <span *ngIf="chanceForm.get('date')?.errors?.['required']">La fecha es requerida</span>
+      </div>
+    </div>
+  
+    <div>
+      <label for="delegationId" class="block mb-2 text-sm font-medium text-gray-900">Delegación</label>
+      <input id="delegationId" type="number" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="delegationId" />
+      <div *ngIf="chanceForm.get('delegationId')?.invalid && (chanceForm.get('delegationId')?.dirty || chanceForm.get('delegationId')?.touched)" class="text-sm text-red-600 mt-1">
+        <span *ngIf="chanceForm.get('delegationId')?.errors?.['required']">La delegación es requerida</span>
+      </div>
+    </div>
+    
+      @if(isEditMode){
+          <button
+            class="bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 py-2 px-5 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out"
+            (click)="onUpdate()"
+          >
+            Actualizar
+          </button>
+          } @else {
+          <button
+            class="bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 py-2 px-5 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out"
+            (click)="onCreate()"
+          >
+            Crear
+          </button>
+          }
+    </form>
+    

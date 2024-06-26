@@ -5,7 +5,7 @@ import { TasksFormPageComponent } from "./pages/tasks-form-page/tasks-form-page.
 import { TasksUpdatePageComponent } from "./pages/tasks-update-page/tasks-update-page.component";
 
 
-export const TaksRoutes: Routes = [
+export const TasksRoutes: Routes = [
     {
         path: '',
         component: TasksLayoutComponent,

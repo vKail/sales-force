@@ -15,13 +15,37 @@ import { ProductsService } from '../../products.service';
 })
 export class ProductTableComponent implements OnInit{
   products : IProduct[] = [];
+  allProducts: IProduct[] = [];
+  currentPage = 1;
+  pageSize = 5;
 
   private productService = inject(ProductsService);
 
   ngOnInit(): void {
+    this.loadProducts();
+  }
+
+  loadProducts(): void {
     this.productService.getProducts().subscribe((products) => {
-      this.products = products;
+      this.allProducts = products;
+      this.applyPagination();
     });
+  }
+
+  applyPagination(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    this.products = this.allProducts.slice(startIndex, startIndex + this.pageSize);
+  }
+
+  get totalPages(): number[] {
+    const totalProducts = this.allProducts.length;
+    const pages = Math.ceil(totalProducts / this.pageSize);
+    return Array.from({ length: pages }, (_, index) => index + 1);
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.applyPagination();
   }
 
   @needConfirmation({
@@ -30,8 +54,8 @@ export class ProductTableComponent implements OnInit{
   })
   deleteProduct(id: number): void { 
     this.productService.deleteProduct(id).subscribe(() => {
-        this.products = this.products.filter((product) => product.id !== id);
-      },
-    );
+      this.allProducts = this.allProducts.filter((product) => product.id !== id);
+      this.applyPagination();
+    });
   }
 }

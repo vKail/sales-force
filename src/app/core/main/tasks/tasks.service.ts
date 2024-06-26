@@ -3,7 +3,7 @@ import { Injectable, inject } from "@angular/core";
 import { IClient } from "../clients/interfaces/client.interface";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { ITask } from "./interfaces/task.interface";
+import { ITask, ITaskGet } from "./interfaces/task.interface";
 
 
 @Injectable({
@@ -15,8 +15,8 @@ export class TasksService {
     private router = inject(Router);
     constructor() {
     }
-    public getTasks(): Observable<ITask[]>{
-        return this.http.get<ITask[]>(`${this.url}`);
+    public getTasks(): Observable<ITaskGet[]>{
+        return this.http.get<ITaskGet[]>(`${this.url}`);
     }
     getTaskById(id : number): Observable<ITask> {
         return this.http.get<ITask>(`${this.url}/${id}`);
@@ -25,7 +25,7 @@ export class TasksService {
         return this.http.post<ITask>(`${this.url}`, user);
     }
     updateTask(id: number, user: ITask): Observable<ITask>{
-        return this.http.put<ITask>(`${this.url}/${id}`, user);
+        return this.http.put<ITask>(`${this.url}/change/${id}`, user);
     }
     deleteTask(id: number): Observable<ITask> {
         return this.http.delete<ITask>(`${this.url}/${id}`);

@@ -1,0 +1,68 @@
+<div class="flex flex-col items-center justify-center min-h-screen py-8 bg-gray-100">
+    <h2 class="mb-6 text-2xl font-semibold text-gray-800">UTA SERVICES</h2>
+    <section class="w-full max-w-md bg-white rounded-lg shadow-md">
+        <form class="p-6" [formGroup]="tasksForm" >
+            <div class="flex flex-col space-y-4">
+                <div>
+                    <label for="delegationId" class="text-gray-700">Delegación</label>
+                    <input id="delegationId" type="number" formControlName="delegationId"
+                        class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                    <div *ngIf="tasksForm.get('delegationId')?.invalid && (tasksForm.get('delegationId')?.dirty || tasksForm.get('delegationId')?.touched)" class="text-sm text-red-600">
+                        <span *ngIf="tasksForm.get('delegationId')?.errors?.['required']">La delegación es requerida</span>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="date" class="text-gray-700">Fecha de inicio</label>
+                    <input id="date" type="date" formControlName="date"
+                        class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                    <div *ngIf="tasksForm.get('date')?.invalid && (tasksForm.get('date')?.dirty || tasksForm.get('date')?.touched)" class="text-sm text-red-600">
+                        <span *ngIf="tasksForm.get('date')?.errors?.['required']">La fecha de inicio es requerida</span>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="estimatedTime" class="text-gray-700">Fecha estimada</label>
+                    <input id="estimatedTime" type="date" formControlName="estimatedTime"
+                        class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                    <div *ngIf="tasksForm.get('estimatedTime')?.invalid && (tasksForm.get('estimatedTime')?.dirty || tasksForm.get('estimatedTime')?.touched)" class="text-sm text-red-600">
+                        <span *ngIf="tasksForm.get('estimatedTime')?.errors?.['required']">La fecha estimada es requerida</span>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="type" class="text-gray-700">Tipo de tarea</label>
+                    <input id="type" type="text" formControlName="type"
+                        class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                    <div *ngIf="tasksForm.get('type')?.invalid && (tasksForm.get('type')?.dirty || tasksForm.get('type')?.touched)" class="text-sm text-red-600">
+                        <span *ngIf="tasksForm.get('type')?.errors?.['required']">Tipo de la tarea</span>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="content" class="text-gray-700">Comentario</label>
+                    <input id="content" type="text" formControlName="content"
+                        class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                    <div *ngIf="tasksForm.get('content')?.invalid && (tasksForm.get('content')?.dirty || tasksForm.get('content')?.touched)" class="text-sm text-red-600">
+                        <span *ngIf="tasksForm.get('content')?.errors?.['required']">El comentario es requerido</span>
+                    </div>
+                </div>                
+                @if(isEditMode){
+                    <button
+                      class="bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 py-2 px-5 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out"
+                      (click)="onUpdate()"
+                    >
+                      Actualizar
+                    </button>
+                    } @else {
+                    <button
+                      class="bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 py-2 px-5 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out"
+                      (click)="onCreate()"
+                    >
+                      Crear
+                    </button>
+                    }
+            </div>
+        </form>
+    </section>
+</div>

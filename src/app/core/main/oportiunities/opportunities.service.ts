@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { IChance } from "./interfaces/opportunity.interface";
+import { IChance, IChanceGet } from "./interfaces/opportunity.interface";
 
 
 @Injectable({
@@ -14,8 +14,8 @@ export class ChancesServices {
     router = inject(Router);
     constructor() {
     }
-    public getChances(): Observable<IChance[]>{
-        return this.http.get<IChance[]>(`${this.url}`);
+    public getChances(): Observable<IChanceGet[]>{
+        return this.http.get<IChanceGet[]>(`${this.url}`);
     }
     public getChanceById(id : number): Observable<IChance> {
         return this.http.get<IChance>(`${this.url}/${id}`);

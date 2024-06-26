@@ -154,5 +154,24 @@
     </tbody>
   </table>
   </div>
-  
+
+  <div class="flex flex-row justify-between items-center mt-4">
+    <div class="flex flex-row">
+      <!-- Botones para cambiar de página -->
+      <button class="px-3 py-1 bg-blue-500 text-white rounded-md mr-2 hover:bg-blue-600"
+              [disabled]="currentPage === 1"
+              (click)="onPageChange(currentPage - 1)">
+        Anterior
+      </button>
+      <div class="text-gray-600 mx-3">
+        <!-- Mostrar información de la página actual -->
+        Página {{ currentPage }}
+      </div>
+      <button class="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              [disabled]="currentPage === totalPages.length"
+              (click)="onPageChange(currentPage + 1)">
+        Siguiente
+      </button>
+    </div>
+  </div>  
   

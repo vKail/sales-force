@@ -10,6 +10,7 @@
                         class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
                     <div *ngIf="clientForm.get('dni')?.invalid && (clientForm.get('dni')?.dirty || clientForm.get('dni')?.touched)" class="text-sm text-red-600">
                         <span *ngIf="clientForm.get('dni')?.errors?.['required']">La identificación es requerida</span>
+                        <span *ngIf="clientForm.get('dni')?.errors?.['minlength'] || clientForm.get('dni')?.errors?.['maxlength'] || clientForm.get('dni')?.errors?.['pattern']">La cédula debe ser correcta</span>
                     </div>
                 </div>
 
@@ -66,6 +67,7 @@
                         class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
                     <div *ngIf="clientForm.get('phone')?.invalid && (clientForm.get('phone')?.dirty || clientForm.get('phone')?.touched)" class="text-sm text-red-600">
                         <span *ngIf="clientForm.get('phone')?.errors?.['required']">El teléfono es requerido</span>
+                        <span *ngIf="clientForm.get('phone')?.errors?.['minlength'] || clientForm.get('phone')?.errors?.['maxlength'] || clientForm.get('phone')?.errors?.['pattern']">El telefono debe ser valido</span>
                     </div>
                 </div>
 

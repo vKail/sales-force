@@ -42,14 +42,14 @@
           <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
             <div>
               <p class="text-sm font-normal text-gray-400">
-                {{ delegation.consumerId }}
+                 {{delegation.consumer.person.dni}} - {{ delegation.consumer.person.firstName }} {{ delegation.consumer.person.lastName }}
               </p>
             </div>
           </td>
           <td class="px-6 py-4 text-sm font-medium whitespace-nowrap">
             <div>
               <p class="text-sm font-normal text-gray-400">
-                {{ delegation.employeeId }}
+                {{delegation.employee.person.dni}} - {{ delegation.employee.person.firstName }} {{ delegation.employee.person.lastName }}
               </p>
             </div>
           </td>
@@ -102,6 +102,26 @@
         }
       </tbody>
     </table>
+    </div>
+    
+    <div class="flex flex-row justify-between items-center mt-4">
+      <div class="flex flex-row">
+        <!-- Botones para cambiar de página -->
+        <button class="px-3 py-1 bg-blue-500 text-white rounded-md mr-2 hover:bg-blue-600"
+                [disabled]="currentPage === 1"
+                (click)="onPageChange(currentPage - 1)">
+          Anterior
+        </button>
+        <div class="text-gray-600 mx-3">
+          <!-- Mostrar información de la página actual -->
+          Página {{ currentPage }}
+        </div>
+        <button class="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                [disabled]="currentPage === totalPages.length"
+                (click)="onPageChange(currentPage + 1)">
+          Siguiente
+        </button>
+      </div>
     </div>
     
     

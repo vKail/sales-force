@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { TasksService } from '../../tasks.service';
-import { ITask } from '../../interfaces/task.interface';
+import { ITask, ITaskGet } from '../../interfaces/task.interface';
 import { needConfirmation } from '../../../../../shared/confirm-dialog/decorators/confirm-dialog.decorator';
 
 @Component({
@@ -14,14 +14,38 @@ import { needConfirmation } from '../../../../../shared/confirm-dialog/decorator
 })
 export class TasksTablePageComponent {
   taskService = inject(TasksService);
-  tasks: ITask[] = []; 
+  tasks: ITaskGet[] = []; 
+  allTasks: ITaskGet[] = [];
+  currentPage = 1;
+  pageSize = 5;
   
   constructor() { }
 
   ngOnInit(): void {
-    this.taskService.getTasks().subscribe((task) => {
-      this.tasks = task;
+    this.loadTasks();
+  }
+
+  loadTasks(): void {
+    this.taskService.getTasks().subscribe((tasks) => {
+      this.allTasks = tasks;
+      this.applyPagination();
     });
+  }
+
+  applyPagination(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    this.tasks = this.allTasks.slice(startIndex, startIndex + this.pageSize);
+  }
+
+  get totalPages(): number[] {
+    const totalTasks = this.allTasks.length;
+    const pages = Math.ceil(totalTasks / this.pageSize);
+    return Array.from({ length: pages }, (_, index) => index + 1);
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.applyPagination();
   }
 
   @needConfirmation({
@@ -31,7 +55,8 @@ export class TasksTablePageComponent {
   })
   deleteDelegation(id: number): void {
     this.taskService.deleteTask(id).subscribe(() => {
-      this.tasks= this.tasks.filter((client) => client.id !== id);
+      this.allTasks = this.allTasks.filter((task) => task.id !== id);
+      this.applyPagination();
     });
   }
 
