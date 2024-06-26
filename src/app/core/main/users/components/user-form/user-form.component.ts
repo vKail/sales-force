@@ -47,13 +47,13 @@ export class UserFormComponent implements OnInit {
 
   initForm(): void {
     this.clientForm = this.formBuilder.group({
-      dni: ['', Validators.required],
+      dni: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('^[0-9]+$')]],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       gender: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       address: ['', Validators.required],
-      phone: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('^[0-9]+$')]],
       birthDate: ['', Validators.required],
       locationId: ['', Validators.required],
       username: ['', Validators.required],
@@ -80,7 +80,7 @@ export class UserFormComponent implements OnInit {
           text: 'No se puede obtener el cliente',
           icon: 'error',
         });
-        this.router.navigate(['/dashboard/clients']);
+        this.router.navigate(['/dashboard/users']);
       },
     });
   }
@@ -113,10 +113,10 @@ export class UserFormComponent implements OnInit {
     delete user.employee.password; // Remove password if not changing it
     this.clientService.updateUser(id, user).subscribe({
       next: () => {
-        this.router.navigate(['/dashboard/clients']);
+        this.router.navigate(['/dashboard/users']);
         Swal.fire({
-          title: 'Cliente actualizado',
-          text: 'Cliente actualizado correctamente',
+          title: 'Empleado actualizado',
+          text: 'Empleado actualizado correctamente',
           icon: 'success',
         });
       },
@@ -132,10 +132,10 @@ export class UserFormComponent implements OnInit {
     const user = this.transformPayload(this.clientForm.value);
     this.clientService.addUser(user).subscribe({
       next: () => {
-        this.router.navigate(['/dashboard/clients']);
+        this.router.navigate(['/dashboard/users']);
         Swal.fire({
-          title: 'Cliente creado',
-          text: 'Cliente creado correctamente',
+          title: 'Empleado creado',
+          text: 'Empleado creado correctamente',
           icon: 'success',
         });
       },
