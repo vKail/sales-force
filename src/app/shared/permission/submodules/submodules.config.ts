@@ -21,7 +21,7 @@ export interface SubModule {
         { id: 3, name: 'clients', description: 'Clientes', routerLink: '/dashboard/clients', icon: 'person' },
         { id: 4, name: 'delegations', description: 'Delegaciones', routerLink: '/dashboard/delegations', icon: 'store' },
         { id: 5, name: 'quotas', description: 'Cuotas', routerLink: '/dashboard/quotas', icon: 'store' },
-        { id: 6, name: 'sales', description: 'Facturas', routerLink: '/dashboard/sales', icon: 'store' },
+        { id: 6, name: 'sales', description: 'Facturas', routerLink: '/dashboard/invoices', icon: 'store' },
         { id: 7, name: 'tasks', description: 'Tareas', routerLink: '/dashboard/tasks', icon: 'store' },
         { id: 8, name: 'opportunities', description: 'Oportunidades', routerLink: '/dashboard/opportunities', icon: 'store' },
       ]
@@ -34,7 +34,7 @@ export interface SubModule {
         { id: 3, name: 'clients', description: 'Clientes', routerLink: '/dashboard/clients', icon: 'person' },
         { id: 4, name: 'delegations', description: 'Delegaciones', routerLink: '/dashboard/delegations', icon: 'store' },
         { id: 5, name: 'quotas', description: 'Cuotas', routerLink: '/dashboard/quotas', icon: 'store' },
-        { id: 6, name: 'sales', description: 'Facturas', routerLink: '/dashboard/sales', icon: 'store' },
+        { id: 6, name: 'sales', description: 'Facturas', routerLink: '/dashboard/invoices', icon: 'store' },
         { id: 7, name: 'tasks', description: 'Tareas', routerLink: '/dashboard/tasks', icon: 'store' },
         { id: 8, name: 'opportunities', description: 'Oportunidades', routerLink: '/dashboard/opportunities', icon: 'store' },
       ]
@@ -46,7 +46,7 @@ export interface SubModule {
         { id: 3, name: 'clients', description: 'Clientes', routerLink: '/dashboard/clients', icon: 'person' },
         { id: 4, name: 'delegations', description: 'Delegaciones', routerLink: '/dashboard/delegations', icon: 'store' },
         { id: 5, name: 'quotas', description: 'Cuotas', routerLink: '/dashboard/quotas', icon: 'store' },
-        { id: 6, name: 'sales', description: 'Facturas', routerLink: '/dashboard/sales', icon: 'store' },
+        { id: 6, name: 'sales', description: 'Facturas', routerLink: '/dashboard/invoices', icon: 'store' },
         { id: 7, name: 'tasks', description: 'Tareas', routerLink: '/dashboard/tasks', icon: 'store' },
         { id: 8, name: 'opportunities', description: 'Oportunidades', routerLink: '/dashboard/opportunities', icon: 'store' },
       ]
