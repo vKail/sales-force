@@ -1,14 +1,17 @@
 <div class="flex justify-end w-full mb-4">
-  <button
-    class="bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 py-2 px-5 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out"
-    routerLink="/dashboard/users/create"
-  >
-    <div class="flex justify-center items-center">
-      <mat-icon>person</mat-icon>
-      <span class="mx-1"></span>
-      Nuevo Usuario
-    </div>
-  </button>
+  <div class="flex justify-end w-full mb-4">
+    <button
+      *ngIf="userRole === 'admin'"
+      class="bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 py-2 px-5 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out"
+      routerLink="/dashboard/users/create"
+    >
+      <div class="flex justify-center items-center">
+        <mat-icon>person</mat-icon>
+        <span class="mx-1"></span>
+        Nuevo Usuario
+      </div>
+    </button>
+  </div>
 </div>
 
 <div class="overflow-x-auto md:rounded-lg">

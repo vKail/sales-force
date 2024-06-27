@@ -5,11 +5,26 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import Swal from 'sweetalert2';
 import { DelegationsService } from '../../../delegations/delegations.service';
 import { CommonModule } from '@angular/common';
+import { FormControl } from '@angular/forms';
+import { IDelegationGet } from '../../../delegations/interfaces/delegations.interface';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-opportunities-form',
   standalone: true,
-  imports: [RouterLink, CommonModule, ReactiveFormsModule],
+  imports: [ ReactiveFormsModule,
+    CommonModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatRadioModule,
+    MatAutocompleteModule],
   templateUrl: './opportunities-form.component.html',
   styles:  ``,
 })
@@ -23,6 +38,11 @@ export class OpportunitiesFormComponent implements OnInit{
   chanceForm!: FormGroup;
   isEditMode: boolean = false;
 
+  searchInputForTask = new FormControl<string | IDelegationGet>('');
+
+  filteredDelegations!: Observable<IDelegationGet[]>;
+  delegations: IDelegationGet[] = [];
+
   ngOnInit(): void {
     this.isEditMode = this.router.url.includes('edit');
     this.initForm();
@@ -33,6 +53,14 @@ export class OpportunitiesFormComponent implements OnInit{
         this.retrieveChance(id);
       });
     }
+
+    this.loadDelegations();
+
+    this.filteredDelegations = this.searchInputForTask.valueChanges.pipe(
+      startWith(''),
+      map(value => (typeof value === 'string' ? value : this.displayDelegation(value as IDelegationGet))),
+      map(name => (name ? this._filter(name) : this.delegations.slice()))
+    );
   }
   
 
@@ -63,6 +91,12 @@ export class OpportunitiesFormComponent implements OnInit{
           
         };
         this.chanceForm.patchValue(chanceData);
+
+        // Set the selected delegation in the autocompleter
+        const selectedDelegation = this.delegations.find(d => d.id === chance.delegationId);
+        if (selectedDelegation) {
+          this.searchInputForTask.setValue(selectedDelegation);
+        }
       },
       error: () => {
         Swal.fire({
@@ -74,6 +108,12 @@ export class OpportunitiesFormComponent implements OnInit{
       },
     });
   }
+  
+  onDelegationSelected(event: any): void {
+    const delegation = event.option.value as IDelegationGet;
+    this.chanceForm.patchValue({ delegationId: delegation.id });
+  }
+
   onUpdate(): void {
     const id = this.activeRoute.snapshot.params['id'];
     const chance = this.chanceForm.value;
@@ -107,5 +147,40 @@ export class OpportunitiesFormComponent implements OnInit{
         });
       },
     });
+  }
+
+  loadDelegations(): void {
+    this.delegationService.getDelegations().subscribe({
+      next: (data) => {
+        this.delegations = data;
+
+        // If in edit mode, set the initial value for the delegation
+        if (this.isEditMode && this.chanceForm.value.delegationId) {
+          const delegation = this.delegations.find(d => d.id === this.chanceForm.value.delegationId);
+          if (delegation) {
+            this.searchInputForTask.setValue(delegation);
+          }
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching delegations:', err);
+      },
+    });
+  }
+
+  displayDelegation(delegation: IDelegationGet): string {
+    return delegation ? `${delegation.employee.person.dni} - ${delegation.employee.person.firstName} ${delegation.employee.person.lastName} / ${delegation.consumer.person.dni} - ${delegation.consumer.person.firstName} ${delegation.consumer.person.lastName}` : '';
+  }
+
+  private _filter(name: string): any[] {
+    const filterValue = name.toLowerCase();
+    return this.delegations.filter(delegation =>
+      delegation.employee.person.dni.toLowerCase().includes(filterValue) ||
+      delegation.employee.person.firstName.toLowerCase().includes(filterValue) ||
+      delegation.employee.person.lastName.toLowerCase().includes(filterValue) ||
+      delegation.consumer.person.dni.toLowerCase().includes(filterValue) ||
+      delegation.consumer.person.firstName.toLowerCase().includes(filterValue) ||
+      delegation.consumer.person.lastName.toLowerCase().includes(filterValue)
+    );
   }
 }
