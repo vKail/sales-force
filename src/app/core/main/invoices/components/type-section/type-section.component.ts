@@ -1,6 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { InvoiceService } from '../../invoice.service';
-import { EstablishmentResponseInterface } from '../../interfaces/invoice.interface';
 
 interface TransactionType {
   name: string;
@@ -21,7 +20,9 @@ export class TypeSectionComponent {
     { name: 'Venta' },
   ];
 
-  selectedEstablishmentId: number | null = null;
+  constructor() {
+    this.updateTypeBaseCase();
+  }
 
   onTypeInvoiceChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
@@ -30,7 +31,7 @@ export class TypeSectionComponent {
   }
 
   private updateTypeBaseCase(): void {
-    if (this.transactions.length === 1) {
+    if (this.transactions.length > 0) {
       this.invoiceService.updateType(this.transactions[0].name);
     }
   }

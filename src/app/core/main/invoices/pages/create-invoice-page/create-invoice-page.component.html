@@ -2,8 +2,8 @@
   <h2>Crear Factura</h2>
   <app-type-section />
   <app-payment-section />
+  <app-delegation />
   <app-item-section (totalChanged)="onTotalChanged($event)" />
-  <app-calculate-values [values]="total" />
   <button
     mat-button
     (click)="sendData()"

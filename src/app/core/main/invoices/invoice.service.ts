@@ -19,30 +19,16 @@ export class InvoiceService {
     date: new Date(),
   });
 
-  public getInvoices(): Observable<InvoiceResponseInterface[]> {
-    return this.http.get<InvoiceResponseInterface[]>(this.url);
+  public getInvoices(): Observable<Invoice[]> {
+    return this.http.get<Invoice[]>(this.url);
   }
 
-  public createInvoice(invoice: Invoice): Observable<InvoiceResponseInterface> {
-    return this.http.post<InvoiceResponseInterface>(this.url, invoice);
+  public createInvoice(invoice: Invoice): Observable<Invoice> {
+    return this.http.post<Invoice>(this.url, invoice);
   }
 
-  public calculateValues(): Observable<TotalResponseInterface> {
-    const currentInvoice = this.invoiceSubject.getValue();
-    return this.http
-      .post<TotalResponseInterface>(`${this.url}/calculate`, currentInvoice)
-      .pipe(
-        map((response) => {
-          return this.transformValues(response);
-        })
-      );
-  }
-
-  public sendInvoice(invoice: Invoice): Observable<InvoiceResponseInterface> {
-    return this.http.post<InvoiceResponseInterface>(
-      `${this.url}/create_autorize`,
-      invoice
-    );
+  public sendInvoice(invoice: Invoice): Observable<Invoice> {
+    return this.http.post<Invoice>(`${this.url}/create_autorize`, invoice);
   }
 
   public getInvoice(): Observable<Invoice> {
@@ -71,16 +57,5 @@ export class InvoiceService {
   public updatePaymentMethod(paymentMethodId: number): void {
     const currentInvoice = this.invoiceSubject.getValue();
     this.invoiceSubject.next({ ...currentInvoice, paymentMethodId });
-  }
-
-  private transformValues(
-    value: TotalResponseInterface
-  ): TotalResponseInterface {
-    return {
-      totalSinImpuestos: value.totalSinImpuestos,
-      totalDescuento: value.totalDescuento,
-      propina: value.propina,
-      importeTotal: value.importeTotal,
-    };
   }
 }

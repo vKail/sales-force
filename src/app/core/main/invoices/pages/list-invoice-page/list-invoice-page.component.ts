@@ -2,7 +2,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { InvoiceTableComponent } from '../../components/invoice-table/invoice-table.component';
 import { InvoiceService } from '../../invoice.service';
 import { Invoice } from '../../interfaces/invoice-bh.interface';
-import { InvoiceResponseInterface } from '../../interfaces/invoice.interface';
 
 @Component({
   selector: 'app-list-invoice-page',
@@ -12,7 +11,7 @@ import { InvoiceResponseInterface } from '../../interfaces/invoice.interface';
   styles: ``,
 })
 export class ListInvoicePageComponent implements OnInit {
-  invoices: InvoiceResponseInterface[] = [];
+  invoices: Invoice[] = [];
 
   private invoiceService = inject(InvoiceService);
 

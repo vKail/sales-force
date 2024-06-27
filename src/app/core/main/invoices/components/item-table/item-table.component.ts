@@ -40,7 +40,6 @@ export class ItemTableComponent {
     propina: 0,
     importeTotal: 0,
   });
-  private invoiceService = inject(InvoiceService);
 
   public addItem(product: IProduct) {
     const newItem: ItemResponse = {
@@ -52,7 +51,6 @@ export class ItemTableComponent {
     this.dataSource.push(newItem);
     this.dataSource = [...this.dataSource];
     this.itemsChange.emit(this.transformedDataSource());
-    this.recalculateTotals();
   }
 
   saveItem(item: ItemResponse) {
@@ -61,7 +59,6 @@ export class ItemTableComponent {
       this.dataSource[index] = item;
       this.dataSource = [...this.dataSource];
       this.itemsChange.emit(this.transformedDataSource());
-      this.recalculateTotals();
     }
   }
 
@@ -75,7 +72,6 @@ export class ItemTableComponent {
       this.dataSource.splice(index, 1);
       this.dataSource = [...this.dataSource];
       this.itemsChange.emit(this.transformedDataSource());
-      this.recalculateTotals();
     }
   }
 
@@ -89,12 +85,6 @@ export class ItemTableComponent {
     if (item.descuento > 0) {
       this.saveItem(item);
     }
-  }
-
-  private recalculateTotals(): void {
-    this.invoiceService.calculateValues().subscribe((response) => {
-      this.totalChanged.set(response);
-    });
   }
 
   private transformedDataSource(): Item[] {

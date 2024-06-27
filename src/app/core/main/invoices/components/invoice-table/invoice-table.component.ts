@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { InvoiceResponseInterface } from '../../interfaces/invoice.interface';
+import { Invoice } from '../../interfaces/invoice-bh.interface';
 
 @Component({
   selector: 'app-invoice-table',
@@ -12,5 +12,5 @@ import { InvoiceResponseInterface } from '../../interfaces/invoice.interface';
   styles: ``,
 })
 export class InvoiceTableComponent {
-  invoices = input.required<InvoiceResponseInterface[]>();
+  invoices = input.required<Invoice[]>();
 }
