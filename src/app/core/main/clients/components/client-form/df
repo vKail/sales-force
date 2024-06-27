@@ -1,0 +1,31 @@
+|Actividad|Duracion|Inicio|Terminado|Holguras|Critico|
+|Planificacion del proyecto|14 days|2/12/24 8:00|19/12/24 17:00|0 days|true
+|Revisión de Normas del SRI|2 days|2/12/24 8:00|3/12/24 17:00|0 days|true
+|Selección de Tecnología|3 days|4/12/24 8:00|6/12/24 17:00|2|1 day|false
+|Análisis de Requerimientos|4 days|4/12/24 8:00|9/12/24 17:00|2|0 days|true
+|Diseño de la base de datos|5 days|10/12/24 8:00|16/12/24 17:00|2;3;4|0 days|true
+|Diseño de la Arquitectura del Sistema|3 days|17/12/24 8:00|19/12/24 17:00|4;5|0 days|true
+|Desarrollo del software|39 days|17/12/24 8:00|12/02/25 17:00|0 days|true
+|Desarrollo del Módulo de Autenticación|5 days|20/12/24 8:00|27/12/24 17:00|5;6|0 days|true
+|Desarrollo del Módulo de Facturación|7 days|30/12/24 8:00|9/01/25 17:00|8;6;5|0 days|true
+|Desarrollo del Módulo de Reportes|6 days|17/12/24 8:00|24/12/24 17:00|5|9 days|false
+|Integración de Módulos|5 days|10/01/25 8:00|16/01/25 17:00|10;9;8|0 days|true
+|Pruebas Unitarias|4 days|17/01/25 8:00|22/01/25 17:00|11|0 days|true
+|Pruebas de Integración|4 days|23/01/25 8:00|28/01/25 17:00|12|0 days|true
+|Pruebas de Sistema|5 days|29/01/25 8:00|4/02/25 17:00|11;12;13|0 days|true
+|Validación con el SRI|6 days|5/02/25 8:00|12/02/25 17:00|14|0 days|true
+|Implementación del software para la empresa|26 days|13/02/25 8:00|24/03/25 17:00|0 days|true
+|Documentación del Sistema|4 days|13/02/25 8:00|18/02/25 17:00|4;6;15|0 days|true
+|Formación y Capacitación de Usuarios|4 days|19/02/25 8:00|24/02/25 17:00|17|0 days|true
+|Implementación Piloto|5 days|25/02/25 8:00|5/03/25 17:00|18|0 days|true
+|Evaluación del Piloto|4 days|6/03/25 8:00|11/03/25 17:00|18;19|0 days|true
+|Ajustes Post-Piloto|4 days|12/03/25 8:00|17/03/25 17:00|19;20|0 days|true
+|Implementación Final|5 days|18/03/25 8:00|24/03/25 17:00|21|0 days|true
+|Evaluación de la aplicación|24 days|25/03/25 8:00|29/04/25 17:00|0 days|true
+|Monitoreo y Soporte Inicial|4 days|25/03/25 8:00|28/03/25 17:00|22|0 days|true
+|Recolección de Feedback|3 days|31/03/25 8:00|2/04/25 17:00|24|0 days|true
+|Análisis de Feedback|3 days|3/04/25 8:00|7/04/25 17:00|25|0 days|true
+|Realización de Ajustes Finales|4 days|8/04/25 8:00|11/04/25 17:00|25;26|0 days|true
+|Pruebas Finales|4 days|14/04/25 8:00|21/04/25 17:00|27|0 days|true
+|Aprobación Final|3 days|22/04/25 8:00|24/04/25 17:00|28|0 days|true
+|Cierre del Proyecto|3 days|25/04/25 8:00|29/04/25 17:00|29|0 days|true

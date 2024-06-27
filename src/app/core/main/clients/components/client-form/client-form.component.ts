@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
+import { IClientUpdate } from '../../interfaces/client.interface';
 
 @Component({
   selector: 'app-client-form',
@@ -23,6 +24,7 @@ export class ClientFormComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   clientForm!: FormGroup;
   isEditMode: boolean = false;
+  clientId: number = 0;
 
   constructor() {}
 
@@ -63,6 +65,7 @@ export class ClientFormComponent implements OnInit {
           birthDate: new Date(client.birthDate).toISOString().substring(0, 10)
         };
         this.clientForm.patchValue(formattedClient);
+        this.clientId = client.consumer.id;
       },
       error: () => {
         Swal.fire({
@@ -94,11 +97,24 @@ export class ClientFormComponent implements OnInit {
   }
 
   onUpdate(): void {
-    if (this.clientForm.invalid) return;
 
     const id = this.activeRoute.snapshot.params['id'];
     const client = this.transformPayload(this.clientForm.value);
-    this.clientService.updateClient(id, client).subscribe({
+    const clientUpdate: IClientUpdate = {
+      type: client.consumer.type,
+      person: {
+        dni: client.dni,
+        firstName: client.firstName,
+        lastName: client.lastName,
+        address: client.address,
+        email: client.email,
+        phone: client.phone,
+        birthDate: client.birthDate,
+        locationId: client.locationId,
+        gender: client.gender,
+      }
+    };
+    this.clientService.updateClient(this.clientId, clientUpdate).subscribe({
       next: () => {
         this.router.navigate(['/dashboard/clients']);
         Swal.fire({

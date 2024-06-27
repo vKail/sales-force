@@ -3,7 +3,7 @@ import { Injectable, inject } from "@angular/core";
 import { IClient } from "../clients/interfaces/client.interface";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { IUser } from "./interfaces/user.interface";
+import { IUpdateUser, IUser } from "./interfaces/user.interface";
 
 
 @Injectable({
@@ -24,8 +24,8 @@ export class UserServices {
     addUser(user: IUser): Observable<IUser> {
         return this.http.post<IUser>(`${this.url}/createEmployee`, user);
     }
-    updateUser(id: number, user: IUser): Observable<IUser>{
-        return this.http.patch<IUser>(`${this.url}/employee/${id}`, user);
+    updateUser(id: number, user: IUpdateUser): Observable<IUser>{
+        return this.http.patch<IUser>(`http://localhost:3000/api/v1/employee/${id}`, user);
     }
     deleteUser(id: number): Observable<IUser> {
         return this.http.delete<IUser>(`${this.url}/${id}`);
