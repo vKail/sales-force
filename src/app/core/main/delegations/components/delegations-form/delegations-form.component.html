@@ -23,7 +23,7 @@
               *ngFor="let client of filteredOptionsForCustomer | async"
               [value]="client"
             >
-              {{ client.dni }} - {{ client.firstName }} {{ client.lastName }}
+              {{ client.dni }} - {{ client.firstName }} {{ client.lastName }} - {{client.location.name}}
             </mat-option>
             <mat-option
               *ngIf="
@@ -68,7 +68,7 @@
               *ngFor="let user of filteredOptionsForEmployee | async"
               [value]="user"
             >
-              {{ user.dni }} - {{ user.firstName }} {{ user.lastName }}
+              {{ user.dni }} - {{ user.firstName }} {{ user.lastName }} - {{user.location.name}}
             </mat-option>
             <mat-option
               *ngIf="

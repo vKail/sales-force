@@ -121,12 +121,12 @@ export class DelegationsFormComponent implements OnInit {
   }
 
   displayFnForEmployee(user: IUser): string {
-    return user ? `${user.dni} - ${user.firstName} - ${user.lastName}` : '';
+    return user ? `${user.dni} - ${user.firstName} - ${user.lastName} - ${user.location.name}` : '';
   }
 
   displayFnForConsumer(client: IClient): string {
     return client
-      ? `${client.dni} - ${client.firstName} - ${client.lastName}`
+      ? `${client.dni} - ${client.firstName} - ${client.lastName} - ${client.location.name}`
       : '';
   }
 

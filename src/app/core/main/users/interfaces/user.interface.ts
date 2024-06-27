@@ -6,18 +6,29 @@ export interface IUser {
     firstName:  string;
     lastName:   string;
     gender:     string;
-    email:      string;
     address:    string;
     phone:      string;
+    email:      string;
     birthDate:  Date;
     locationId: number;
+    location:   Location;
     employee:   Employee;
+    createdAt:  Date;
+    updateAt:   Date;
 }
 
 export interface Employee {
-    id:      number;
-    username: string;
-    password: string;
-    role:     string;
-    isActive: boolean;
+    id:             number;
+    username:       string;
+    hashedPassword: string;
+    role:           string;
+    isActive:       boolean;
+    createdAt:      Date;
+    updateAt:       Date;
+    personId:       number;
+}
+
+export interface Location {
+    id:   number;
+    name: string;
 }
