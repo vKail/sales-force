@@ -76,6 +76,7 @@
         <td class="px-6 py-4 text-sm whitespace-nowrap">
           <div class="flex items-center gap-x-6">
             <button
+            *ngIf="userRole === 'admin' "
               class="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none"
               (click)="deleteUser(user.id)"
             >
@@ -85,6 +86,7 @@
             </button>
 
             <button
+            *ngIf="userRole === 'admin'"
               class="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none"
               [routerLink]="['/dashboard/users/edit/', user.id]"
             >

@@ -7,6 +7,7 @@ import { needConfirmation } from '../../../../../shared/confirm-dialog/decorator
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-quotas-table-page',
@@ -21,11 +22,13 @@ export class QuotasTablePageComponent implements OnInit{
   allQuotas: IQuotaGet[] = [];
   currentPage = 1;
   pageSize = 5;
+  userRole: string | null = "";
   
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loadQuotas();
+    this.userRole = this.authService.getUserRole();
   }
 
   loadQuotas(): void {

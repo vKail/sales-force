@@ -5,6 +5,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { needConfirmation } from '../../../../../shared/confirm-dialog/decorators/confirm-dialog.decorator';
 import { ProductsService } from '../../products.service';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-product-table',
@@ -18,11 +19,13 @@ export class ProductTableComponent implements OnInit{
   allProducts: IProduct[] = [];
   currentPage = 1;
   pageSize = 5;
+  userRole: string | null = "";
 
   private productService = inject(ProductsService);
-
+  constructor(private authService: AuthService) { }
   ngOnInit(): void {
     this.loadProducts();
+    this.userRole = this.authService.getUserRole();
   }
 
   loadProducts(): void {
