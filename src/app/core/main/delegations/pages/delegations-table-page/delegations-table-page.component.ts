@@ -4,11 +4,13 @@ import { IDelegationGet, IDelegations } from '../../interfaces/delegations.inter
 import { needConfirmation } from '../../../../../shared/confirm-dialog/decorators/confirm-dialog.decorator';
 import { RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
+import { AuthService } from '../../../../auth/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-delegations-table-page',
   standalone: true,
-  imports: [RouterLink,MatIcon],
+  imports: [RouterLink,MatIcon,CommonModule],
   templateUrl: './delegations-table-page.component.html',
   styles: ``,
 })
@@ -18,11 +20,13 @@ export class DelegationsTablePageComponent implements OnInit{
   allDelegations: IDelegationGet[] = [];
   currentPage = 1;
   pageSize = 5;
+  userRole: string | null = "";
   
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loadDelegations();
+    this.userRole = this.authService.getUserRole();
   }
 
   loadDelegations(): void {

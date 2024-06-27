@@ -1,6 +1,7 @@
 <div class="flex justify-end w-full mb-4">
   
     <button
+      *ngIf="userRole === 'admin'"
       class="bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 py-2 px-5 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out"
       routerLink="/dashboard/clients/create"
     >
@@ -95,6 +96,7 @@
           <td class="px-6 py-4 text-sm whitespace-nowrap">
             <div class="flex items-center gap-x-6">
               <button
+              *ngIf="userRole === 'admin'"
                 class="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none"
                 (click)="deleteClient(client.id)"
               >
@@ -115,6 +117,7 @@
               </button>
   
               <button
+              *ngIf="userRole === 'admin'"
                 class="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none"
                 [routerLink]="['/dashboard/clients/edit/', client.id]"
               >

@@ -4,11 +4,13 @@ import { IClient } from '../../interfaces/client.interface';
 import { needConfirmation } from '../../../../../shared/confirm-dialog/decorators/confirm-dialog.decorator';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../../../auth/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-client-table-page',
   standalone: true,
-  imports: [MatIcon,RouterLink],
+  imports: [MatIcon,RouterLink, CommonModule],
   templateUrl: './client-table-page.component.html',
   styles: ``,
 })
@@ -18,12 +20,14 @@ export class ClientTablePageComponent implements OnInit{
     allClients: IClient[] = [];
     currentPage = 1;
     pageSize = 5;
+    userRole: string | null = "";
 
     
-    constructor() { }
+    constructor(private authService: AuthService) { }
   
     ngOnInit(): void {
       this.loadClients();
+      this.userRole = this.authService.getUserRole();
     }
 
     loadClients(): void {
