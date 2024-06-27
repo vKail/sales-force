@@ -1,6 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import Swal from 'sweetalert2';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -8,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
 import { UserServices } from '../../users.service';
+import { IUpdateUser } from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-user-form',
@@ -30,6 +36,7 @@ export class UserFormComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   clientForm!: FormGroup;
   isEditMode: boolean = false;
+  idEmployee: number = 0;
 
   constructor() {}
 
@@ -47,13 +54,29 @@ export class UserFormComponent implements OnInit {
 
   initForm(): void {
     this.clientForm = this.formBuilder.group({
-      dni: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('^[0-9]+$')]],
+      dni: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10),
+          Validators.pattern('^[0-9]+$'),
+        ],
+      ],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       gender: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       address: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('^[0-9]+$')]],
+      phone: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10),
+          Validators.pattern('^[0-9]+$'),
+        ],
+      ],
       birthDate: ['', Validators.required],
       locationId: ['', Validators.required],
       username: ['', Validators.required],
@@ -70,9 +93,10 @@ export class UserFormComponent implements OnInit {
           ...user,
           birthDate: new Date(user.birthDate).toISOString().substring(0, 10),
           username: user.employee.username,
-          role: user.employee.role
+          role: user.employee.role,
         };
         this.clientForm.patchValue(formattedUser);
+        this.idEmployee = user.employee.id;
       },
       error: () => {
         Swal.fire({
@@ -106,12 +130,26 @@ export class UserFormComponent implements OnInit {
   }
 
   onUpdate(): void {
-    if (this.clientForm.invalid) return;
 
     const id = this.activeRoute.snapshot.params['id'];
     const user = this.transformPayload(this.clientForm.value);
     delete user.employee.password; // Remove password if not changing it
-    this.clientService.updateUser(id, user).subscribe({
+    const userUpdate: IUpdateUser = {
+      role: user.employee.role,
+      username: user.employee.username,
+      person: {
+        address: user.address,
+        birthDate: user.birthDate,
+        dni: user.dni,
+        email: user.email,
+        firstName: user.firstName,
+        gender: user.gender,
+        lastName: user.lastName,
+        locationId: user.locationId,
+        phone: user.phone,
+      }
+    };
+    this.clientService.updateUser(this.idEmployee, userUpdate).subscribe({
       next: () => {
         this.router.navigate(['/dashboard/users']);
         Swal.fire({

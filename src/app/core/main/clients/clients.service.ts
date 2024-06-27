@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { IClient } from './interfaces/client.interface';
+import { IClient, IClientUpdate } from './interfaces/client.interface';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -21,8 +21,8 @@ export class ClientService {
   addClient(client: IClient): Observable<IClient> {
     return this.http.post<IClient>(`${this.url}/createConsumer`, client);
   }
-  updateClient(id: number, client: IClient): Observable<IClient> {
-    return this.http.patch<IClient>(`${this.url}/consumer/${id}`, client);
+  updateClient(id: number, client: IClientUpdate): Observable<IClient> {
+    return this.http.patch<IClient>(`http://localhost:3000/api/v1/consumer/${id}`, client);
   }
   deleteClient(id: number): Observable<void> {
     return this.http.delete<void>(`${this.url}/${id}`);

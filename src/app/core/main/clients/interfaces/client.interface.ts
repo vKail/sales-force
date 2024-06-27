@@ -30,3 +30,20 @@ export interface Location {
     id:   number;
     name: string;
 }
+
+export interface IClientUpdate {
+    type:   string;
+    person: IClientPerson;
+}
+
+export interface IClientPerson {
+    dni:        string;
+    firstName:  string;
+    lastName:   string;
+    gender:     string;
+    email:      string;
+    address:    string;
+    phone:      string;
+    birthDate:  Date;
+    locationId: number;
+}
