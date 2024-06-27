@@ -5,6 +5,7 @@ import { UserServices } from '../../users.service';
 import { IUser } from '../../interfaces/user.interface';
 import { CommonModule } from '@angular/common';
 import { needConfirmation } from '../../../../../shared/confirm-dialog/decorators/confirm-dialog.decorator';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-user-table-page',
@@ -19,11 +20,13 @@ export class UserTablePageComponent implements OnInit {
   allUsers: IUser[] = []; // To store all users fetched from the service
   currentPage = 1;
   pageSize = 5;
+  userRole: string | null = "";
 
-  constructor() {}
-
+  constructor(private authService: AuthService) {}
+  
   ngOnInit(): void {
     this.loadUsers();
+    this.userRole = this.authService.getUserRole();
   }
 
   loadUsers(): void {

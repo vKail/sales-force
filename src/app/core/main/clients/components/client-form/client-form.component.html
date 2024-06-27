@@ -32,16 +32,21 @@
                         </div>
                     </div>
                 </div>
-
-                <div>
-                    <label for="gender" class="text-gray-700">Género</label>
-                    <input id="gender" type="text" formControlName="gender"
-                        class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40">
-                    <div *ngIf="clientForm.get('gender')?.invalid && (clientForm.get('gender')?.dirty || clientForm.get('gender')?.touched)" class="text-sm text-red-600">
-                        <span *ngIf="clientForm.get('gender')?.errors?.['required']">El género es requerido</span>
-                    </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Genero:</label>
+                    <mat-radio-group
+                      aria-label="Seleccione un genero"
+                      class="bg-white flex flex-col rounded-lg p-2 mb-1"
+                      formControlName="gender"
+                      color="primary"
+                    >
+                      <mat-radio-button value="f">Femenino</mat-radio-button>
+                      <mat-radio-button value="m">Masculino</mat-radio-button>
+                    </mat-radio-group>
+                    <div *ngIf="clientForm.get('gender')?.invalid && (clientForm.get('gender')?.dirty || clientForm.get('gender')?.touched)" class="text-sm text-red-600 mt-1">
+                      <span *ngIf="clientForm.get('gender')?.errors?.['required']">El tipo de usuario es requerido</span>
+                  </div>
                 </div>
-
                 <div>
                     <label for="email" class="text-gray-700">Correo</label>
                     <input id="email" type="text" formControlName="email"
@@ -96,6 +101,21 @@
                     <div *ngIf="clientForm.get('type')?.invalid && (clientForm.get('type')?.dirty || clientForm.get('type')?.touched)" class="text-sm text-red-600">
                         <span *ngIf="clientForm.get('type')?.errors?.['required']">El tipo de cliente es requerido</span>
                     </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Tipo de cliente:</label>
+                    <mat-radio-group
+                      aria-label="Seleccione un tipo de cliente"
+                      class="bg-white flex flex-col rounded-lg p-2 mb-1"
+                      formControlName="type"
+                      color="primary"
+                    >
+                      <mat-radio-button value="Empresa">Empresa</mat-radio-button>
+                      <mat-radio-button value="Persona">Persona</mat-radio-button>
+                    </mat-radio-group>
+                    <div *ngIf="clientForm.get('type')?.invalid && (clientForm.get('type')?.dirty || clientForm.get('type')?.touched)" class="text-sm text-red-600 mt-1">
+                      <span *ngIf="clientForm.get('type')?.errors?.['required']">El tipo de usuario es requerido</span>
+                  </div>
                 </div>
                 
                 @if(isEditMode){

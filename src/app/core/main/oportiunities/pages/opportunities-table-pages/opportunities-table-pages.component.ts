@@ -4,11 +4,12 @@ import { IChance, IChanceGet } from '../../interfaces/opportunity.interface';
 import { ChancesServices } from '../../opportunities.service';
 import { RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-opportunities-table-pages',
   standalone: true,
-  imports: [RouterLink,MatIcon],
+  imports: [RouterLink,MatIcon, CommonModule, DatePipe],
   templateUrl: './opportunities-table-pages.component.html',
   styles:  ``,
 })

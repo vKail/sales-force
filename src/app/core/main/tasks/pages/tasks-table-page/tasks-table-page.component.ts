@@ -4,11 +4,12 @@ import { RouterLink } from '@angular/router';
 import { TasksService } from '../../tasks.service';
 import { ITask, ITaskGet } from '../../interfaces/task.interface';
 import { needConfirmation } from '../../../../../shared/confirm-dialog/decorators/confirm-dialog.decorator';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-tasks-table-page',
   standalone: true,
-  imports: [RouterLink, MatIcon],
+  imports: [RouterLink, MatIcon, DatePipe, CommonModule],
   templateUrl: './tasks-table-page.component.html',
   styles: ``,
 })

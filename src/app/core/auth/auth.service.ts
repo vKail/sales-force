@@ -55,6 +55,21 @@ export class AuthService {
         return 0; // O un valor predeterminado adecuado para el servidor
     }
 
+    getUserRole(): string | null {
+      // Verifica si el código se está ejecutando en el navegador
+      if (isPlatformBrowser(this.platformId)) {
+        // Ahora es seguro acceder a document.cookie
+        const token = this.document.cookie.split(';').find(cookie => cookie.trim().startsWith('token='));
+        if (token) {
+          const tokenValue = token.split('=')[1];
+          const role = this.decodeUserRoleFromToken(tokenValue);
+          console.log('User role:', role);
+          return role; // Devuelve el rol encontrado en el token
+        }
+      }
+      return null; // Retorna null si no se encontró el token o el rol
+    }
+
     private decodeUserIdFromToken(token: string): number {
       try {
           // Decodifica el payload del JWT
@@ -65,5 +80,18 @@ export class AuthService {
           console.error('Error decoding token:', error);
           return 0;
       }
+  }
+
+  private decodeUserRoleFromToken(token: string): string | null {
+    try {
+      // Decodifica el payload del JWT
+      const payload = atob(token.split('.')[1]);
+      const payloadObject = JSON.parse(payload);
+      const role = payloadObject.role; // Obtén el rol del payload
+      return role; // Retorna el rol
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return null; // Retorna null en caso de error
+    }
   }
 }

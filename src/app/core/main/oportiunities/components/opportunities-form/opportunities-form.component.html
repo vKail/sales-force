@@ -16,9 +16,24 @@
     </div>
   
     <div>
-      <label for="delegationId" class="block mb-2 text-sm font-medium text-gray-900">Delegación</label>
-      <input id="delegationId" type="number" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="delegationId" />
-      <div *ngIf="chanceForm.get('delegationId')?.invalid && (chanceForm.get('delegationId')?.dirty || chanceForm.get('delegationId')?.touched)" class="text-sm text-red-600 mt-1">
+      <label for="delegationId" class="text-gray-700">Delegación</label>
+      <input
+        id="delegationId"
+        type="text"
+        [formControl]="searchInputForTask"
+        [matAutocomplete]="auto"
+        class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-40"
+      >
+      <mat-autocomplete #auto="matAutocomplete" 
+      [displayWith]="displayDelegation"
+      (optionSelected)="onDelegationSelected($event)"
+      
+      >
+        <mat-option *ngFor="let delegation of filteredDelegations | async" [value]="delegation">
+         Empleado: {{ delegation.employee.person.dni }} - {{ delegation.employee.person.firstName }} / Cliente: {{ delegation.consumer.person.dni }} - {{ delegation.consumer.person.firstName }} 
+        </mat-option>
+      </mat-autocomplete>
+      <div *ngIf="chanceForm.get('delegationId')?.invalid && (chanceForm.get('delegationId')?.dirty || chanceForm.get('delegationId')?.touched)" class="text-sm text-red-600">
         <span *ngIf="chanceForm.get('delegationId')?.errors?.['required']">La delegación es requerida</span>
       </div>
     </div>
