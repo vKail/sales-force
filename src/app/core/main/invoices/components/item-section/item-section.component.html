@@ -1,0 +1,19 @@
+<section
+  class="relative flex w-full border-2 border-cyan-900 rounded-lg p-4 mt-4"
+>
+  <span
+    class="absolute top-0 left-0 transform -translate-y-1/2 bg-slate-300 px-1 text-black-500 font-medium text-base"
+    >Productos</span
+  >
+  <div class="container mx-auto p-4">
+    <div class="mb-4">
+      <app-product-dropdown
+        (productSelected)="onProductSelected($event)"
+      ></app-product-dropdown>
+      <app-item-table
+        #invoiceTable
+        (itemsChange)="onItemsChange($event)"
+      ></app-item-table>
+    </div>
+  </div>
+</section>

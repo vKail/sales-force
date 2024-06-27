@@ -1,0 +1,21 @@
+<mat-form-field appearance="fill">
+  <mat-label>Producto</mat-label>
+  <input
+    type="text"
+    matInput
+    [formControl]="productControl"
+    [matAutocomplete]="auto"
+  />
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    (optionSelected)="onProductSelected($event.option.value)"
+    [displayWith]="displayFn"
+  >
+    @for(product of filteredProducts | async; track product.id) {
+    <mat-option [value]="product">
+      {{ product.name }}
+    </mat-option>
+
+    }
+  </mat-autocomplete>
+</mat-form-field>
