@@ -1,35 +1,52 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TasksService } from '../../tasks.service';
+import { DelegationsService } from '../../../delegations/delegations.service';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
+import { IDelegationGet } from '../../../delegations/interfaces/delegations.interface';
+import { ITask } from '../../interfaces/task.interface';
 
 @Component({
   selector: 'app-tasks-form',
   standalone: true,
-  imports: [RouterLink, CommonModule, ReactiveFormsModule, MatButtonModule,
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
-    MatRadioModule,],
+    MatRadioModule,
+    MatAutocompleteModule
+  ],
   templateUrl: './tasks-form.component.html',
-  styles: ``,
+  styles: [],
 })
 export class TasksFormComponent implements OnInit {
   private activeRoute = inject(ActivatedRoute);
   private taskService = inject(TasksService);
-  public router = inject(Router);
+  private delegationsService = inject(DelegationsService);
+  private router = inject(Router);
   private formBuilder = inject(FormBuilder);
+
   tasksForm!: FormGroup;
+  searchInputForTask = new FormControl<string | IDelegationGet>('');
+  filteredDelegations!: Observable<IDelegationGet[]>;
+  delegations: IDelegationGet[] = [];
+
   isEditMode: boolean = false;
-  minDate: string = ''; // Fecha mínima para date
-  maxDate: string = ''; // Fecha máxima para date
-  minDateTime: string = ''; // Fecha y hora mínima para estimatedTime
-  maxDateTime: string = ''; // Fecha y hora máxima para estimatedTime 
+  minDate: string = '';
+  maxDate: string = '';
+  minDateTime: string = '';
+  maxDateTime: string = '';
 
   constructor() {}
 
@@ -44,6 +61,14 @@ export class TasksFormComponent implements OnInit {
         this.retrievetask(id);
       });
     }
+
+    this.loadDelegations();
+
+    this.filteredDelegations = this.searchInputForTask.valueChanges.pipe(
+      startWith(''),
+      map(value => (typeof value === 'string' ? value : this.displayDelegation(value as IDelegationGet))),
+      map(name => (name ? this._filter(name) : this.delegations.slice()))
+    );
   }
 
   initForm(): void {
@@ -63,9 +88,15 @@ export class TasksFormComponent implements OnInit {
           ...task,
           date: new Date(task.date).toISOString().substring(0, 10),
           estimatedTime: new Date(task.estimatedTime).toISOString().substring(0, 10),
-          comments: task.comments[0].content,
+          content: task.comment.content,
         };
         this.tasksForm.patchValue(formattedtask);
+
+        // Set the selected delegation in the autocompleter
+        const selectedDelegation = this.delegations.find(d => d.id === task.delegationId);
+        if (selectedDelegation) {
+          this.searchInputForTask.setValue(selectedDelegation);
+        }
       },
       error: () => {
         Swal.fire({
@@ -78,18 +109,23 @@ export class TasksFormComponent implements OnInit {
     });
   }
 
-  transforData(formValue: any): any {
+  onDelegationSelected(event: any): void {
+    const delegation = event.option.value as IDelegationGet;
+    this.tasksForm.patchValue({ delegationId: delegation.id });
+  }
+
+  transforData(formValue: any): ITask {
     const dateWithTime = new Date(formValue.date).toISOString();
     const estimatedTimeWithTime = new Date(formValue.estimatedTime).toISOString();
-    
+  
     return {
       date: dateWithTime,
       estimatedTime: estimatedTimeWithTime,
       type: formValue.type,
       delegationId: formValue.delegationId,
-      comments: [{
-        content: formValue.content,
-      }],
+      comment: {
+        content: formValue.content.toString(),
+      },
     };
   }
 
@@ -98,10 +134,10 @@ export class TasksFormComponent implements OnInit {
     const futureDate = new Date();
     futureDate.setDate(currentDate.getDate() + 30);
 
-    this.minDate = currentDate.toISOString().substring(0, 10); // Fecha mínima para date
-    this.maxDate = futureDate.toISOString().substring(0, 10); // Fecha máxima para date
-    this.minDateTime = this.formatDateTime(currentDate); // Fecha y hora mínima para estimatedTime
-    this.maxDateTime = this.formatDateTime(futureDate); // Fecha y hora máxima para estimatedTime
+    this.minDate = currentDate.toISOString().substring(0, 10);
+    this.maxDate = futureDate.toISOString().substring(0, 10);
+    this.minDateTime = this.formatDateTime(currentDate);
+    this.maxDateTime = this.formatDateTime(futureDate);
   }
 
   formatDateTime(dateTime: string | Date): string {
@@ -114,6 +150,41 @@ export class TasksFormComponent implements OnInit {
     const hours = `${dateTime.getHours()}`.padStart(2, '0');
     const minutes = `${dateTime.getMinutes()}`.padStart(2, '0');
     return `${year}-${month}-${day}T${hours}:${minutes}`;
+  }
+
+  loadDelegations(): void {
+    this.delegationsService.getDelegations().subscribe({
+      next: (data) => {
+        this.delegations = data;
+
+        // If in edit mode, set the initial value for the delegation
+        if (this.isEditMode && this.tasksForm.value.delegationId) {
+          const delegation = this.delegations.find(d => d.id === this.tasksForm.value.delegationId);
+          if (delegation) {
+            this.searchInputForTask.setValue(delegation);
+          }
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching delegations:', err);
+      },
+    });
+  }
+
+  displayDelegation(delegation: IDelegationGet): string {
+    return delegation ? `${delegation.employee.person.dni} - ${delegation.employee.person.firstName} ${delegation.employee.person.lastName} / ${delegation.consumer.person.dni} - ${delegation.consumer.person.firstName} ${delegation.consumer.person.lastName}` : '';
+  }
+
+  private _filter(name: string): any[] {
+    const filterValue = name.toLowerCase();
+    return this.delegations.filter(delegation =>
+      delegation.employee.person.dni.toLowerCase().includes(filterValue) ||
+      delegation.employee.person.firstName.toLowerCase().includes(filterValue) ||
+      delegation.employee.person.lastName.toLowerCase().includes(filterValue) ||
+      delegation.consumer.person.dni.toLowerCase().includes(filterValue) ||
+      delegation.consumer.person.firstName.toLowerCase().includes(filterValue) ||
+      delegation.consumer.person.lastName.toLowerCase().includes(filterValue)
+    );
   }
 
   onUpdate(): void {
@@ -138,6 +209,7 @@ export class TasksFormComponent implements OnInit {
 
   onCreate(): void {
     if (this.tasksForm.invalid) return;
+
     const task = this.transforData(this.tasksForm.value);
     this.taskService.addTask(task).subscribe({
       next: () => {
