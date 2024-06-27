@@ -1,0 +1,121 @@
+<div class="flex justify-end w-full mb-4">
+  <button
+    class="bg-teal-600 hover:bg-teal-700 focus:bg-teal-800 py-2 px-5 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out"
+    routerLink="/dashboard/invoice/new-invoice"
+  >
+    <div class="flex justify-center items-center">
+      <mat-icon>description</mat-icon>
+      <span class="mx-1"></span>
+      Nueva Factura
+    </div>
+  </button>
+</div>
+
+<div class="overflow-x-auto md:rounded-lg">
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead class="bg-gray-300">
+      <tr>
+        <th
+          scope="col"
+          class="py-3.5 px-6 text-sm font-medium uppercase text-left rtl:text-right text-gray-900"
+        >
+          <span>N.Factura</span>
+        </th>
+        <th
+          scope="col"
+          class="py-3.5 px-6 text-sm font-medium uppercase text-left rtl:text-right text-gray-900"
+        >
+          <span>Cliente</span>
+        </th>
+        <th
+          scope="col"
+          class="py-3.5 px-6 text-sm font-medium uppercase text-left rtl:text-right text-gray-900"
+        >
+          <span>Fecha Emision</span>
+        </th>
+        <th
+          scope="col"
+          class="py-3.5 px-6 text-sm font-medium uppercase text-left rtl:text-right text-gray-900"
+        >
+          <span>Total</span>
+        </th>
+        <th
+          scope="col"
+          class="py-3.5 px-6 text-sm font-medium uppercase text-left rtl:text-right text-gray-900"
+        >
+          <span>Estado</span>
+        </th>
+        <th
+          scope="col"
+          class="py-3.5 px-6 text-sm font-medium uppercase text-left rtl:text-right text-gray-900"
+        >
+          <span>Acciones </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      @for(invoice of invoices(); track invoice) {
+      <tr class="even:bg-gray-200 odd:bg-gray-50">
+        <td class="px-4 py-1 text-sm font-medium whitespace-nowrap">
+          <div>
+            <p class="text-sm text-gray-900 font-light px-4 py-1 whitespace-nowrap text-center">
+              {{ invoice.secuencial }}
+            </p>
+          </div>
+        </td>
+        <td class="px-4 py-1 text-sm font-medium whitespace-nowrap">
+          <div>
+            <p class="text-sm text-gray-900 font-light px-4 py-1 whitespace-nowrap text-center">
+              {{ invoice.estado }}
+            </p>
+          </div>
+        </td>
+        <td class="px-4 py-1 text-sm font-medium whitespace-nowrap">
+          <div>
+            <p class="text-sm text-gray-900 font-light px-4 py-1 whitespace-nowrap text-center">
+              {{ invoice.fechaEmision | date : "dd/MM/yyyy" }}
+            </p>
+          </div>
+        </td>
+        <td class="px-4 py-1 text-sm font-medium whitespace-nowrap">
+          <div>
+            <p class="text-sm text-gray-900 font-light px-4 py-1 whitespace-nowrap text-center">
+              {{ invoice.importeTotal | currency : "USD" : "symbol" }}
+            </p>
+          </div>
+        </td>
+        <td class="px-4 py-1 text-sm font-medium whitespace-nowrap">
+          <div>
+            <p class="text-sm text-gray-900 font-light px-4 py-1 whitespace-nowrap text-center">
+              {{ invoice.estado }}
+            </p>
+          </div>
+        </td>
+        <td class="px-4 py-1 text-sm font-medium whitespace-nowrap">
+          <div class="flex items-center">
+            <button
+              class="text-red-400 transition-colors duration-200 hover:text-red-800 focus:outline-none"
+              [routerLink]="['/dashboard/invoices/edit-invoice/', invoice.id]"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-5 h-5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                />
+              </svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
