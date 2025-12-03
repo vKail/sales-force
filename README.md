@@ -1,27 +1,68 @@
-# SalesForceFront
+# 📊 Sales Force Management System
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.2.
+Sales and commercial force management system developed with Angular.
 
-## Development server
+## 📋 Description
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Web application designed for comprehensive sales management, from initial client contact to final order processing and metric analysis. It provides tools for sales reps, managers, and administrators.
 
-## Code scaffolding
+**Features:**
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+-   Full CRUD for Clients, Products, and Orders
+    
+-   Quote and proposal generation module
+    
+-   Real-time sales pipeline tracking
+    
+-   Dashboard for key sales metrics and performance
+    
+-   User roles (Sales Rep, Manager, Admin)
+    
+-   Integrated reporting module
+    
 
-## Build
+## 🛠️ Technologies
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+-   Angular
+    
+-   TypeScript
+        
+-   Tailwind CSS
+    
+-   REST API integration 
+    
 
-## Running unit tests
+## 🚀 Installation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+# Clone the repository
+git clone [https://github.com/vKail/sales-force.git](https://github.com/vKail/sales-force.git)
+cd sales-force
 
-## Running end-to-end tests
+# Install dependencies
+npm install
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+# Run in development mode
+ng serve
 
-## Further help
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📂 Project Structure
+
+```
+src/
+├── app/
+│   ├── core/
+│   ├── features/
+│   │   ├── clients/
+│   │   ├── products/
+│   │   ├── orders/
+│   │   └── dashboard/
+│   └── shared/
+└── environments/
+
+```
+
+## 👥 Contributors
+
+-   **Adrian Jurado** - [@vKail](https://github.com/vKail "null")
